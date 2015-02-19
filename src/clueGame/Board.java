@@ -31,4 +31,11 @@ public class Board {
 		return null;
 		
 	}
+	public Map<Character, String> getRooms() {
+		return rooms;
+	}
+	public RoomCell getRoomCellAt(int a, int b){
+		return null;
+		
+	}
 }

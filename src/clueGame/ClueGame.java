@@ -17,4 +17,13 @@ public class ClueGame {
 	public void loadRoomConfig(){
 		
 	}
+
+	public Board getBoard() {
+		return b;
+	}
+
+	public Map<Character, String> getRooms() {
+		return rooms;
+	}
+	
 }

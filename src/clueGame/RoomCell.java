@@ -1,6 +1,6 @@
 package clueGame;
 
-public class RoomCell extends BoardCell{
+public class RoomCell extends BoardCell{;
 	private DoorDirection doorDirection;
 	private char room;
 		
