@@ -43,6 +43,12 @@ public class clueTests {
 		assertEquals("Billiard room", rooms.get('R'));
 		assertEquals("Dining room", rooms.get('D'));
 		assertEquals("Walkway", rooms.get('W'));
+		assertEquals("Kitchen", rooms.get('K'));
+		assertEquals("Library", rooms.get('L'));
+		assertEquals("Study", rooms.get('S'));
+		assertEquals("Lounge", rooms.get('O'));
+		assertEquals("Hall", rooms.get('H'));
+		assertEquals("Closet", rooms.get('X'));
 	}
 	
 	@Test

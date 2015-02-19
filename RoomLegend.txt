@@ -8,3 +8,4 @@ D, Dining room
 O, Lounge
 H, Hall
 X, Closet
+W, Walkway
