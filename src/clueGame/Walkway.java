@@ -2,6 +2,7 @@ package clueGame;
 
 public class Walkway extends BoardCell{
 	public boolean isWalkway(){
-		return false;
+		return true;
 	}
+	// Override draw method later in GUI
 }
