@@ -58,26 +58,31 @@ public class clueTests {
 	@Test
 	public void FourDoorDirections() {
 		// Test one each RIGHT/LEFT/UP/DOWN
-		RoomCell room = board.getRoomCellAt(4, 3);
+		RoomCell room = board.getRoomCellAt(0, 4);
 		assertTrue(room.isDoorway());
 		assertEquals(RoomCell.DoorDirection.RIGHT, room.getDoorDirection());
-		room = board.getRoomCellAt(4, 8);
+		room = board.getRoomCellAt(3, 2);
 		assertTrue(room.isDoorway());
 		assertEquals(RoomCell.DoorDirection.DOWN, room.getDoorDirection());
-		room = board.getRoomCellAt(15, 18);
+		room = board.getRoomCellAt(4, 8);
 		assertTrue(room.isDoorway());
 		assertEquals(RoomCell.DoorDirection.LEFT, room.getDoorDirection());
-		room = board.getRoomCellAt(14, 11);
+		room = board.getRoomCellAt(12, 19);
 		assertTrue(room.isDoorway());
 		assertEquals(RoomCell.DoorDirection.UP, room.getDoorDirection());
 		// Test that room pieces that aren't doors know it
-		room = board.getRoomCellAt(14, 14);
+		room = board.getRoomCellAt(0, 0);
 		assertFalse(room.isDoorway());	
 		// Test that walkways are not doors
-		BoardCell cell = board.getCellAt(0, 6);
+		BoardCell cell = board.getCellAt(0, 5);
 		assertFalse(cell.isDoorway());		
 
 	}
+	
+	
+	
+	/////// change everything below this
+	
 	
 	// Test that we have the correct number of doors
 	@Test
