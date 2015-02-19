@@ -6,9 +6,14 @@ public class ClueGame {
 	private Board b = new Board();
 	private Map<Character, String> rooms;
 	
+	public ClueGame(String layout, String legend) {
+		
+	}
+	
 	public void loadConfigFiles(){
 		b.loadBoardConfig(rooms);
 	}
+	
 	public void loadRoomConfig(){
 		
 	}
