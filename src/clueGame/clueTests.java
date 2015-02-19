@@ -85,11 +85,6 @@ public class clueTests {
 
 	}
 	
-	
-	
-	/////// change everything below this
-	
-	
 	// Test that we have the correct number of doors
 	@Test
 	public void testNumberOfDoorways() 
@@ -103,7 +98,7 @@ public class clueTests {
 				if (cell.isDoorway())
 					numDoors++;
 			}
-		Assert.assertEquals(16, numDoors);
+		Assert.assertEquals(14, numDoors);
 	}
 
 	// Test a few room cells to ensure the room initial is
@@ -111,7 +106,7 @@ public class clueTests {
 	@Test
 	public void testRoomInitials() {
 		assertEquals('C', board.getRoomCellAt(0, 0).getInitial());
-		assertEquals('R', board.getRoomCellAt(4, 8).getInitial());
+		assertEquals('R', board.getRoomCellAt(4, 9).getInitial());
 		assertEquals('B', board.getRoomCellAt(9, 0).getInitial());
 		assertEquals('O', board.getRoomCellAt(21, 22).getInitial());
 		assertEquals('K', board.getRoomCellAt(21, 0).getInitial());
