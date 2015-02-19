@@ -1,7 +1,7 @@
 package clueGame;
 
 public class RoomCell extends BoardCell{;
-	private DoorDirection doorDirection;
+	static public DoorDirection DoorDirection;
 	private char roomInitial;
 		
 	public boolean isRoom(){
@@ -10,7 +10,7 @@ public class RoomCell extends BoardCell{;
 	// Override draw method later in GUI
 
 	public DoorDirection getDoorDirection() {
-		return doorDirection;
+		return DoorDirection;
 	}
 	public char getInitial() {
 		return roomInitial;
