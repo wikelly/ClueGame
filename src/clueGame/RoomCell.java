@@ -8,4 +8,8 @@ public class RoomCell extends BoardCell{;
 		return true;
 	}
 	// Override draw method later in GUI
+
+	public DoorDirection getDoorDirection() {
+		return doorDirection;
+	}
 }
