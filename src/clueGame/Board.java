@@ -17,6 +17,12 @@ public class Board {
 	public void calcTargets(){
 		
 	}
+	public int getNumRows() {
+		return numRows;
+	}
+	public int getNumColumns() {
+		return numColumns;
+	}
 	public void calcAdjacencies(){
 		
 	}
