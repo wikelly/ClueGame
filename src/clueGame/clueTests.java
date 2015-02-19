@@ -17,7 +17,7 @@ import clueGame.BoardCell;
 import clueGame.ClueGame;
 import clueGame.RoomCell;
 
-public class InstructorTests {
+public class clueTests {
 	// I made this static because I only want to set it up one 
 	// time (using @BeforeClass), no need to do setup before each test
 	private static Board board;
@@ -27,7 +27,7 @@ public class InstructorTests {
 	
 	@BeforeClass
 	public static void setUp() {
-		ClueGame game = new ClueGame("ClueLayout2.csv", "ClueLegend2.txt");
+		ClueGame game = new ClueGame("ClueLayout.csv", "RoomLegend.txt");
 		game.loadConfigFiles();
 		board = game.getBoard();
 	}
@@ -110,7 +110,7 @@ public class InstructorTests {
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadColumns() throws BadConfigFormatException, FileNotFoundException {
 		// overloaded Game ctor takes config file names
-		ClueGame game = new ClueGame("ClueLayoutBadColumns2.csv", "ClueLegend2.txt");
+		ClueGame game = new ClueGame("ClueLayoutBadColumns.csv", "RoomLegend.txt");
 		// You may change these calls if needed to match your function names
 		// My loadConfigFiles has a try/catch, so I can't call it directly to
 		// see test throwing the BadConfigFormatException
@@ -121,7 +121,7 @@ public class InstructorTests {
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadRoom() throws BadConfigFormatException, FileNotFoundException {
 		// overloaded Board ctor takes config file name
-		ClueGame game = new ClueGame("ClueLayoutBadRoom2.csv", "ClueLegend2.txt");
+		ClueGame game = new ClueGame("ClueLayoutBadRoom.csv", "RoomLegend.txt");
 		game.loadRoomConfig();
 		game.getBoard().loadBoardConfig();
 	}
@@ -129,7 +129,7 @@ public class InstructorTests {
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadRoomFormat() throws BadConfigFormatException, FileNotFoundException {
 		// overloaded Board ctor takes config file name
-		ClueGame game = new ClueGame("ClueLayout2.csv", "ClueLegendBadFormat2.txt");
+		ClueGame game = new ClueGame("ClueLayout.csv", "ClueLegendBadFormat.txt");
 		game.loadRoomConfig();
 		game.getBoard().loadBoardConfig();
 	}
