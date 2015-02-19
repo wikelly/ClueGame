@@ -6,8 +6,10 @@ import java.util.Set;
 
 public class Board {
 	private int numRows, numColumns;
+	private Map<Character, String> rooms;
 	private Set<BoardCell> targets;
 	private Map<BoardCell, LinkedList<BoardCell>> adjMtx;
+	private BoardCell[][] board;
 	
 	public void loadBoardConfig(Map<Character, String> a){
 		
