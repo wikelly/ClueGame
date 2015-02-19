@@ -11,7 +11,7 @@ public class ClueGame {
 	}
 	
 	public void loadConfigFiles(){
-		b.loadBoardConfig(rooms);
+		b.loadBoardConfig();
 	}
 	
 	public void loadRoomConfig(){

@@ -17,7 +17,7 @@ import clueGame.BoardCell;
 import clueGame.ClueGame;
 import clueGame.RoomCell;
 
-public class CR_FileInitTests {
+public class InstructorTests {
 	// I made this static because I only want to set it up one 
 	// time (using @BeforeClass), no need to do setup before each test
 	private static Board board;

@@ -11,7 +11,7 @@ public class Board {
 	private Map<BoardCell, LinkedList<BoardCell>> adjMtx;
 	private BoardCell[][] board;
 	
-	public void loadBoardConfig(Map<Character, String> a){
+	public void loadBoardConfig(){
 		
 	}
 	public void calcTargets(){
