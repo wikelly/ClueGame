@@ -33,6 +33,8 @@ public class Board {
 			while (fin.hasNextLine()){
 				ar = fin.nextLine().split(",");
 				for (int j = 0; j < ar.length; j++){
+					if(!rooms.containsKey(ar[j].charAt(0)))
+						throw new BadConfigFormatException();
 					if (ar[j].equals("W")){
 						board[i][j] = new Walkway();
 					}else {
