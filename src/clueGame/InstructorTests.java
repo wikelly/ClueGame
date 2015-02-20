@@ -5,6 +5,7 @@ package clueGame;
 import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Map;
 
 import org.junit.Assert;
@@ -26,7 +27,7 @@ public class InstructorTests {
 	public static final int NUM_COLUMNS = 23;
 	
 	@BeforeClass
-	public static void setUp() {
+	public static void setUp() throws BadConfigFormatException {
 		ClueGame game = new ClueGame("ClueLayout2.csv", "ClueLegend2.txt");
 		game.loadConfigFiles();
 		board = game.getBoard();
@@ -114,7 +115,7 @@ public class InstructorTests {
 		// You may change these calls if needed to match your function names
 		// My loadConfigFiles has a try/catch, so I can't call it directly to
 		// see test throwing the BadConfigFormatException
-		game.loadRoomConfig();
+		game.loadRoomConfig("ClueLegend2.txt");
 		game.getBoard().loadBoardConfig();
 	}
 	// Test that an exception is thrown for a bad config file
@@ -122,7 +123,7 @@ public class InstructorTests {
 	public void testBadRoom() throws BadConfigFormatException, FileNotFoundException {
 		// overloaded Board ctor takes config file name
 		ClueGame game = new ClueGame("ClueLayoutBadRoom2.csv", "ClueLegend2.txt");
-		game.loadRoomConfig();
+		game.loadRoomConfig("ClueLegend2.txt");
 		game.getBoard().loadBoardConfig();
 	}
 	// Test that an exception is thrown for a bad config file
@@ -130,7 +131,7 @@ public class InstructorTests {
 	public void testBadRoomFormat() throws BadConfigFormatException, FileNotFoundException {
 		// overloaded Board ctor takes config file name
 		ClueGame game = new ClueGame("ClueLayout2.csv", "ClueLegendBadFormat2.txt");
-		game.loadRoomConfig();
+		game.loadRoomConfig("ClueLegendBadFormat2.txt");
 		game.getBoard().loadBoardConfig();
 	}
 }
