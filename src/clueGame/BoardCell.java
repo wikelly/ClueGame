@@ -2,7 +2,7 @@ package clueGame;
 
 public class BoardCell {
 	private int row, column;
-	private DoorDirection dd;
+	protected DoorDirection dd;
 	
 	public boolean isWalkway(){
 		return false;	
@@ -11,7 +11,7 @@ public class BoardCell {
 		return false;
 	}
 	public boolean isDoorway(){
-		return true;
+		return false;
 	}
 	// Add method draw when making GUI
 }

@@ -12,7 +12,7 @@ public class Board {
 	private Map<Character, String> rooms;
 	private Set<BoardCell> targets;
 	private Map<BoardCell, LinkedList<BoardCell>> adjMtx;
-	private BoardCell[][] board;
+	public BoardCell[][] board;
 	
 	public void loadBoardConfig(String layout) throws BadConfigFormatException{
 		try {
@@ -41,6 +41,7 @@ public class Board {
 						board[i][j] = new RoomCell(ar[j]);
 					}
 				}
+				i=i+1;
 			}
 			fin.close();
 		} catch (FileNotFoundException e) {
@@ -63,7 +64,7 @@ public class Board {
 	public void getTargets(){
 		
 	}
-	public LinkedList<BoardCell> getAdjList(int column, int row){
+	public LinkedList<BoardCell> getAdjList(int row, int column){
 		return null;
 		
 	}

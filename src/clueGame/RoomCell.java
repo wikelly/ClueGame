@@ -11,39 +11,45 @@ public class RoomCell extends BoardCell{;
 		roomInitial = room.charAt(0);
 		if (room.length() == 2){
 			if(room.charAt(1) == 'R'){
-				DoorDirection = DoorDirection.RIGHT;
+				super.dd = DoorDirection.RIGHT;
 			}
 			else if(room.charAt(1) == 'L'){
-				DoorDirection = DoorDirection.LEFT;
+				super.dd = DoorDirection.LEFT;
 			}
 			else if(room.charAt(1) == 'U'){
-				DoorDirection = DoorDirection.UP;
+				super.dd = DoorDirection.UP;
 			}
 			else if(room.charAt(1) == 'D'){
-				DoorDirection = DoorDirection.DOWN;
+				super.dd = DoorDirection.DOWN;
 			}
 			else if(room.charAt(1) == 'N'){
-				DoorDirection = DoorDirection.NONE;
+				super.dd = DoorDirection.NONE;
 			}
 			else {
 				throw new BadConfigFormatException();
 			}
 		}
 		else {
-			DoorDirection = DoorDirection.NONE;
+			super.dd = DoorDirection.NONE;
 		}
 		
 	}
 	
+	
+
+
 	@Override
 	public boolean isRoom() {
 		// TODO Auto-generated method stub
-		return true;
+		return super.isRoom();
 	}
+
+
+
 
 	@Override
 	public boolean isDoorway() {
-		if (DoorDirection == DoorDirection.NONE){
+		if (super.dd == DoorDirection.NONE){
 			return false;
 		}else {
 			return true;
@@ -52,8 +58,9 @@ public class RoomCell extends BoardCell{;
 
 
 
+
 	public DoorDirection getDoorDirection() {
-		return DoorDirection;
+		return super.dd;
 	}
 	public char getInitial() {
 		return roomInitial;

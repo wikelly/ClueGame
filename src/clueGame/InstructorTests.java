@@ -49,8 +49,6 @@ public class InstructorTests {
 	@Test
 	public void testBoardDimensions() {
 		// Ensure we have the proper number of rows and columns
-		System.out.println(board.getNumRows());
-		System.out.println(board.getNumColumns());
 		assertEquals(NUM_ROWS, board.getNumRows());
 		assertEquals(NUM_COLUMNS, board.getNumColumns());		
 	}
