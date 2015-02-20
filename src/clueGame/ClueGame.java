@@ -14,10 +14,11 @@ public class ClueGame {
 	
 	public ClueGame(String layout, String legend) throws BadConfigFormatException {
 		loadRoomConfig(legend);
+		loadConfigFiles(layout);
 	}
 	
-	public void loadConfigFiles(){
-		b.loadBoardConfig();
+	public void loadConfigFiles(String layout) throws BadConfigFormatException{
+		b.loadBoardConfig(layout);
 	}
 	
 	public void loadRoomConfig(String legend) throws BadConfigFormatException{
@@ -38,6 +39,7 @@ public class ClueGame {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}	
+		b.setRooms(rooms);
 	}
 	
 	public static void main(String[] args) throws BadConfigFormatException {

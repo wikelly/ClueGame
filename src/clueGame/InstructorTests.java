@@ -29,7 +29,7 @@ public class InstructorTests {
 	@BeforeClass
 	public static void setUp() throws BadConfigFormatException {
 		ClueGame game = new ClueGame("ClueLayout2.csv", "ClueLegend2.txt");
-		game.loadConfigFiles();
+		game.loadConfigFiles("ClueLayout2.csv");
 		board = game.getBoard();
 	}
 	@Test
@@ -49,6 +49,8 @@ public class InstructorTests {
 	@Test
 	public void testBoardDimensions() {
 		// Ensure we have the proper number of rows and columns
+		System.out.println(board.getNumRows());
+		System.out.println(board.getNumColumns());
 		assertEquals(NUM_ROWS, board.getNumRows());
 		assertEquals(NUM_COLUMNS, board.getNumColumns());		
 	}
@@ -116,7 +118,7 @@ public class InstructorTests {
 		// My loadConfigFiles has a try/catch, so I can't call it directly to
 		// see test throwing the BadConfigFormatException
 		game.loadRoomConfig("ClueLegend2.txt");
-		game.getBoard().loadBoardConfig();
+		game.getBoard().loadBoardConfig("ClueLayoutBadColumns2.csv");
 	}
 	// Test that an exception is thrown for a bad config file
 	@Test (expected = BadConfigFormatException.class)
@@ -124,7 +126,7 @@ public class InstructorTests {
 		// overloaded Board ctor takes config file name
 		ClueGame game = new ClueGame("ClueLayoutBadRoom2.csv", "ClueLegend2.txt");
 		game.loadRoomConfig("ClueLegend2.txt");
-		game.getBoard().loadBoardConfig();
+		game.getBoard().loadBoardConfig("ClueLayoutBadRoom2.csv");
 	}
 	// Test that an exception is thrown for a bad config file
 	@Test (expected = BadConfigFormatException.class)
@@ -132,6 +134,6 @@ public class InstructorTests {
 		// overloaded Board ctor takes config file name
 		ClueGame game = new ClueGame("ClueLayout2.csv", "ClueLegendBadFormat2.txt");
 		game.loadRoomConfig("ClueLegendBadFormat2.txt");
-		game.getBoard().loadBoardConfig();
+		game.getBoard().loadBoardConfig("ClueLayout2.csv");
 	}
 }
