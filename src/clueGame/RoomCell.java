@@ -5,8 +5,9 @@ public class RoomCell extends BoardCell{;
 	private char roomInitial;
 	
 	
-	public RoomCell(String room) {
+	public RoomCell(String room) throws BadConfigFormatException {
 		super();
+		
 		roomInitial = room.charAt(0);
 		if (room.length() == 2){
 			if(room.charAt(1) == 'R'){
@@ -21,8 +22,11 @@ public class RoomCell extends BoardCell{;
 			else if(room.charAt(1) == 'D'){
 				DoorDirection = DoorDirection.DOWN;
 			}
-			else {
+			else if(room.charAt(1) == 'N'){
 				DoorDirection = DoorDirection.NONE;
+			}
+			else {
+				throw new BadConfigFormatException();
 			}
 		}
 		else {
