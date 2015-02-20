@@ -1,8 +1,12 @@
 package clueGame;
 
 public class Walkway extends BoardCell{
-	public boolean isWalkway(){
+
+	@Override
+	public boolean isWalkway() {
+		// TODO Auto-generated method stub
 		return true;
 	}
-	// Override draw method later in GUI
+	
+	
 }

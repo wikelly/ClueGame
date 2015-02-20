@@ -11,7 +11,7 @@ public class BoardCell {
 		return false;
 	}
 	public boolean isDoorway(){
-		return false;
+		return true;
 	}
 	// Add method draw when making GUI
 }

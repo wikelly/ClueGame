@@ -31,6 +31,8 @@ public class ClueGame {
 				while ((tmp=br.readLine())!=null){
 					tmp2 = new String[2];
 					tmp2 = tmp.split(", ");
+					if (tmp2.length != 2)
+						throw new BadConfigFormatException();
 					rooms.put(tmp2[0].charAt(0), tmp2[1]);
 				}
 			} catch (IOException e) {

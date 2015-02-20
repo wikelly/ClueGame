@@ -30,10 +30,23 @@ public class RoomCell extends BoardCell{;
 		}
 		
 	}
-	public boolean isRoom(){
+	
+	@Override
+	public boolean isRoom() {
+		// TODO Auto-generated method stub
 		return true;
 	}
-	// Override draw method later in GUI
+
+	@Override
+	public boolean isDoorway() {
+		if (DoorDirection == DoorDirection.NONE){
+			return false;
+		}else {
+			return true;
+		}
+	}
+
+
 
 	public DoorDirection getDoorDirection() {
 		return DoorDirection;

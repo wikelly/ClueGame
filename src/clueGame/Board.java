@@ -65,15 +65,15 @@ public class Board {
 		return null;
 		
 	}
-	public BoardCell getCellAt(int column, int row){
-		return null;
+	public BoardCell getCellAt(int row, int column){
+		return board[row][column];
 		
 	}
 	public Map<Character, String> getRooms() {
 		return rooms;
 	}
 	public RoomCell getRoomCellAt(int a, int b){
-		return null;
+		return (RoomCell) board[a][b];
 		
 	}
 	public void setRooms(Map<Character, String> rooms) {
