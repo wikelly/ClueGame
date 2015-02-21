@@ -63,7 +63,6 @@ public class Board {
 	}
 	public Set<BoardCell> getTargets(){
 		return targets;
-		
 	}
 	public LinkedList<BoardCell> getAdjList(int row, int column){
 		return null;
