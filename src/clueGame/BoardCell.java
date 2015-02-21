@@ -14,4 +14,17 @@ public class BoardCell {
 		return false;
 	}
 	// Add method draw when making GUI
+	public int getRow() {
+		return row;
+	}
+	public int getColumn() {
+		return column;
+	}
+	public void setRow(int row) {
+		this.row = row;
+	}
+	public void setColumn(int column) {
+		this.column = column;
+	}
+	
 }

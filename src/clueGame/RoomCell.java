@@ -40,8 +40,7 @@ public class RoomCell extends BoardCell{;
 
 	@Override
 	public boolean isRoom() {
-		// TODO Auto-generated method stub
-		return super.isRoom();
+		return true;
 	}
 
 
