@@ -33,13 +33,13 @@ public class OurAdjTargetTests {
 		testList = board.getAdjList(6,21);
 		Assert.assertEquals(0, testList.size());
 		// Test one that has walkway above
-		testList = board.getAdjList(18,13);
+		testList = board.getAdjList(18,12);
 		Assert.assertEquals(0, testList.size());
 		// Test one that is in middle of room
 		testList = board.getAdjList(19,21);
 		Assert.assertEquals(0, testList.size());
 		// Test one beside a door
-		testList = board.getAdjList(10,20);
+		testList = board.getAdjList(11,20);
 		Assert.assertEquals(0, testList.size());
 		// Test one in a corner of room
 		testList = board.getAdjList(0,9);
