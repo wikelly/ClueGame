@@ -20,7 +20,7 @@ public class OurAdjTargetTests {
 		board = game.getBoard();
 		board.calcAdjacencies();
 	}
-
+	
 	// Ensure that player does not move around within room
 	// These cells are ORANGE on the planning spreadsheet
 	@Test
@@ -207,7 +207,7 @@ public class OurAdjTargetTests {
 		Assert.assertEquals(4, targets.size());
 		Assert.assertTrue(targets.contains(board.getCellAt(16,19)));
 		Assert.assertTrue(targets.contains(board.getCellAt(17,20)));	
-		Assert.assertTrue(targets.contains(board.getCellAt(16,22)));	
+		Assert.assertTrue(targets.contains(board.getCellAt(16,21)));	
 		Assert.assertTrue(targets.contains(board.getCellAt(17,18)));
 	}	
 	
@@ -234,7 +234,7 @@ public class OurAdjTargetTests {
 		Set<BoardCell> targets= board.getTargets();
 		Assert.assertEquals(2, targets.size());
 		Assert.assertTrue(targets.contains(board.getCellAt(0,4)));
-		Assert.assertTrue(targets.contains(board.getCellAt(3,4)));
+		Assert.assertTrue(targets.contains(board.getCellAt(3,5)));
 	}
 	
 	// Test getting into room, doesn't require all steps

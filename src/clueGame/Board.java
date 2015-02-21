@@ -2,6 +2,9 @@ package clueGame;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
@@ -10,8 +13,9 @@ import java.util.Set;
 public class Board {
 	private int numRows = 0, numColumns = 0;
 	private Map<Character, String> rooms;
-	private Set<BoardCell> targets;
-	private Map<BoardCell, LinkedList<BoardCell>> adjMtx;
+	private Set<BoardCell> targets = new HashSet<BoardCell>();
+	private Set<BoardCell> visited = new HashSet<BoardCell>();
+	private Map<BoardCell, LinkedList<BoardCell>> adjMtx = new HashMap<BoardCell, LinkedList<BoardCell>>();
 	public BoardCell[][] board;
 	
 	public void loadBoardConfig(String layout) throws BadConfigFormatException{
@@ -40,6 +44,8 @@ public class Board {
 					}else {
 						board[i][j] = new RoomCell(ar[j]);
 					}
+					board[i][j].setRow(i);
+					board[i][j].setColumn(j);
 				}
 				i=i+1;
 			}
@@ -49,9 +55,30 @@ public class Board {
 			e.printStackTrace();
 		}
 	}
+	
 	public void calcTargets(int i, int j, int k){
-		
+		targets = new HashSet<BoardCell>();
+		visited = new HashSet<BoardCell>();
+		calcTargets2(i, j, k);
 	}
+	
+	public void calcTargets2(int i, int j, int k){
+		BoardCell a = new BoardCell();
+		a = getCellAt(i, j);
+		visited.add(a);
+		LinkedList<BoardCell> tmp = new LinkedList<BoardCell>(adjMtx.get(a));
+		tmp.removeAll(visited);
+		for (BoardCell c : tmp){
+			visited.add(c);
+			if ((k == 1)||(c.isDoorway())){
+				targets.add(c);
+			}else {
+				calcTargets2(c.getRow(),c.getColumn(), k-1);
+			}
+			visited.remove(c);
+		}
+	}
+	
 	public int getNumRows() {
 		return numRows;
 	}
@@ -59,14 +86,54 @@ public class Board {
 		return numColumns;
 	}
 	public void calcAdjacencies(){
-		
+		for (int i = 0; i < numRows; i++){
+			for (int j = 0; j < numColumns; j++){
+				LinkedList<BoardCell> tmp = new LinkedList<BoardCell>();
+				if (getCellAt(i, j).isDoorway()){
+					if (i+1 < numRows) {
+						if (getCellAt(i+1, j).isWalkway()&&getCellAt(i, j).dd==DoorDirection.DOWN)
+							tmp.add(getCellAt(i+1, j));
+					}
+					if (i-1 > -1) {
+						if (getCellAt(i-1, j).isWalkway()&&getCellAt(i, j).dd==DoorDirection.UP)
+							tmp.add(getCellAt(i-1, j));
+					}
+					if (j+1 < numColumns) {
+						if (getCellAt(i, j+1).isWalkway()&&getCellAt(i, j).dd==DoorDirection.RIGHT)
+							tmp.add(getCellAt(i, j+1));
+					}
+					if (j-1 > -1) {
+						if (getCellAt(i, j-1).isWalkway()&&getCellAt(i, j).dd==DoorDirection.LEFT)
+							tmp.add(getCellAt(i, j-1));
+					}
+				}else if(!getCellAt(i, j).isRoom() ){
+					if (i+1 < numRows) {
+						if (getCellAt(i+1, j).isWalkway()||(getCellAt(i+1, j).isDoorway()&&getCellAt(i+1, j).dd==DoorDirection.UP))
+							tmp.add(getCellAt(i+1, j));
+					}
+					if (i-1 > -1) {
+						if (getCellAt(i-1, j).isWalkway()||(getCellAt(i-1, j).isDoorway()&&getCellAt(i-1, j).dd==DoorDirection.DOWN))
+							tmp.add(getCellAt(i-1, j));
+					}
+					if (j+1 < numColumns) {
+						if (getCellAt(i, j+1).isWalkway()||(getCellAt(i, j+1).isDoorway()&&getCellAt(i, j+1).dd==DoorDirection.LEFT))
+							tmp.add(getCellAt(i, j+1));
+					}
+					if (j-1 > -1) {
+						if (getCellAt(i, j-1).isWalkway()||(getCellAt(i, j-1).isDoorway()&&getCellAt(i, j-1).dd==DoorDirection.RIGHT))
+							tmp.add(getCellAt(i, j-1));
+					}
+				}
+				adjMtx.put(getCellAt(i, j), tmp);
+			}
+		}
 	}
 	public Set<BoardCell> getTargets(){
 		return targets;
 		
 	}
 	public LinkedList<BoardCell> getAdjList(int row, int column){
-		return null;
+		return adjMtx.get(getCellAt(row,column));
 		
 	}
 	public BoardCell getCellAt(int row, int column){
