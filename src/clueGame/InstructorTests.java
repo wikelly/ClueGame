@@ -29,7 +29,7 @@ public class InstructorTests {
 	@BeforeClass
 	public static void setUp() throws BadConfigFormatException {
 		ClueGame game = new ClueGame("ClueLayout2.csv", "ClueLegend2.txt");
-		game.loadConfigFiles("ClueLayout2.csv");
+		//game.loadConfigFiles("ClueLayout2.csv");
 		board = game.getBoard();
 	}
 	@Test

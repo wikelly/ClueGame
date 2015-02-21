@@ -49,7 +49,7 @@ public class Board {
 			e.printStackTrace();
 		}
 	}
-	public void calcTargets(){
+	public void calcTargets(int i, int j, int k){
 		
 	}
 	public int getNumRows() {
@@ -61,7 +61,8 @@ public class Board {
 	public void calcAdjacencies(){
 		
 	}
-	public void getTargets(){
+	public Set<BoardCell> getTargets(){
+		return targets;
 		
 	}
 	public LinkedList<BoardCell> getAdjList(int row, int column){
