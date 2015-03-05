@@ -11,7 +11,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class Board {
-	private int numRows = 0, numColumns = 0;
+	private int numRows, numColumns;
 	private Map<Character, String> rooms;
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
@@ -56,24 +56,24 @@ public class Board {
 		}
 	}
 	
-	public void calcTargets(int i, int j, int k){
+	public void calcTargets(int row, int col, int diceRoll){
 		targets = new HashSet<BoardCell>();
 		visited = new HashSet<BoardCell>();
-		calcTargets2(i, j, k);
+		calcAllTargets(row, col, diceRoll);
 	}
 	
-	public void calcTargets2(int i, int j, int k){
+	public void calcAllTargets(int row, int col, int numSteps){
 		BoardCell a = new BoardCell();
-		a = getCellAt(i, j);
+		a = getCellAt(row, col);
 		visited.add(a);
 		LinkedList<BoardCell> tmp = new LinkedList<BoardCell>(adjMtx.get(a));
 		tmp.removeAll(visited);
 		for (BoardCell c : tmp){
 			visited.add(c);
-			if ((k == 1)||(c.isDoorway())){
+			if ((numSteps == 1)||(c.isDoorway())){
 				targets.add(c);
 			}else {
-				calcTargets2(c.getRow(),c.getColumn(), k-1);
+				calcAllTargets(c.getRow(),c.getColumn(), numSteps-1);
 			}
 			visited.remove(c);
 		}
@@ -135,15 +135,15 @@ public class Board {
 		return adjMtx.get(getCellAt(row,column));
 		
 	}
-	public BoardCell getCellAt(int row, int column){
-		return board[row][column];
+	public BoardCell getCellAt(int row, int col){
+		return board[row][col];
 		
 	}
 	public Map<Character, String> getRooms() {
 		return rooms;
 	}
-	public RoomCell getRoomCellAt(int a, int b){
-		return (RoomCell) board[a][b];
+	public RoomCell getRoomCellAt(int row, int col){
+		return (RoomCell) board[row][col];
 		
 	}
 	public void setRooms(Map<Character, String> rooms) {

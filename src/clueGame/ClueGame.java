@@ -5,12 +5,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ClueGame {
 	private Board b = new Board();
 	private Map<Character, String> rooms = new HashMap<Character, String>();
+	private ArrayList<Card> deck;
+	private ArrayList<Player> players;
 	
 	public ClueGame(String layout, String legend) throws BadConfigFormatException {
 		loadRoomConfig(legend);
@@ -44,6 +47,21 @@ public class ClueGame {
 		b.setRooms(rooms);
 	}
 	
+	public void deal(){
+		
+	}
+	
+	public void selectAnswer(){
+		
+	}
+	
+	public void handleSuggestion(String person, String room, String weapon, Player accusingPerson){
+		
+	}
+	
+	public boolean checkAccusation(Solution solution){
+		return false;
+	}
 	public static void main(String[] args) throws BadConfigFormatException {
 		ClueGame g = new ClueGame("ClueLayout.csv", "RoomLegend.txt");
 	}
