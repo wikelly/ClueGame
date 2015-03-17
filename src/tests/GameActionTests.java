@@ -193,6 +193,7 @@ public class GameActionTests {
 		roomTest.add(board.getBoardCellAt(18, 13)); // the room cell
 		roomTest.add(board.getBoardCellAt(21, 14));
 		roomTest.add(board.getBoardCellAt(19, 15));
+		testPlayer.setLastRoomVisited(' '); 
 		for(int i = 0; i<50;i++){
 			assertEquals(board.getBoardCellAt(18, 13), testPlayer.pickLocation(roomTest));
 			testPlayer.setLastRoomVisited(' '); //make the computer forget it just entered the room

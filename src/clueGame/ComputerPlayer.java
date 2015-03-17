@@ -1,6 +1,9 @@
 package clueGame;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 public class ComputerPlayer extends Player {
@@ -11,7 +14,31 @@ public class ComputerPlayer extends Player {
 	}
 	
 	public BoardCell pickLocation(Set<BoardCell> targets){
-		return new BoardCell();
+		//copies the set to a new Set we can delete/manipulate
+		Set<BoardCell> newTargets = new HashSet<BoardCell>(targets);
+		ArrayList<BoardCell> roomTargets = new ArrayList<BoardCell>();
+		ArrayList<BoardCell> otherTargets = new ArrayList<BoardCell>();
+		
+		for(BoardCell x: newTargets){
+			if(x.isRoom()){
+				if(((RoomCell)x).getRoomInitial() == lastRoomVisited){
+					otherTargets.add(x);
+				}else{
+					roomTargets.add(x);
+				}
+			}else{
+				otherTargets.add(x);
+			}
+		}
+		Random rand = new Random();
+		int randTarget;
+		if(!roomTargets.isEmpty()){
+			randTarget = rand.nextInt(roomTargets.size());
+			return roomTargets.get(randTarget);
+		}
+		
+		randTarget = rand.nextInt(otherTargets.size());
+		return otherTargets.get(randTarget);
 	}
 	
 	public void createSuggestion(){
