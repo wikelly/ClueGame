@@ -1,18 +1,25 @@
 package clueGame;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
 
 public class Board {
 	private int numRows, numColumns;
+	private Player humanPlayer;
 	private Map<Character, String> rooms;
+	private Map<String, Color> players;
+	private ArrayList<Player> gamePlayers = new ArrayList<Player>();
+	private Map<String,ArrayList<Integer>> startingPositions = new HashMap<String, ArrayList<Integer>>();
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private Map<BoardCell, LinkedList<BoardCell>> adjMtx = new HashMap<BoardCell, LinkedList<BoardCell>>();
@@ -64,7 +71,7 @@ public class Board {
 	
 	public void calcAllTargets(int row, int col, int numSteps){
 		BoardCell a = new BoardCell();
-		a = getCellAt(row, col);
+		a = getBoardCellAt(row, col);
 		visited.add(a);
 		LinkedList<BoardCell> tmp = new LinkedList<BoardCell>(adjMtx.get(a));
 		tmp.removeAll(visited);
@@ -89,42 +96,42 @@ public class Board {
 		for (int i = 0; i < numRows; i++){
 			for (int j = 0; j < numColumns; j++){
 				LinkedList<BoardCell> tmp = new LinkedList<BoardCell>();
-				if (getCellAt(i, j).isDoorway()){
+				if (getBoardCellAt(i, j).isDoorway()){
 					if (i+1 < numRows) {
-						if (getCellAt(i+1, j).isWalkway()&&getCellAt(i, j).dd==DoorDirection.DOWN)
-							tmp.add(getCellAt(i+1, j));
+						if (getBoardCellAt(i+1, j).isWalkway()&&getBoardCellAt(i, j).dd==DoorDirection.DOWN)
+							tmp.add(getBoardCellAt(i+1, j));
 					}
 					if (i-1 > -1) {
-						if (getCellAt(i-1, j).isWalkway()&&getCellAt(i, j).dd==DoorDirection.UP)
-							tmp.add(getCellAt(i-1, j));
+						if (getBoardCellAt(i-1, j).isWalkway()&&getBoardCellAt(i, j).dd==DoorDirection.UP)
+							tmp.add(getBoardCellAt(i-1, j));
 					}
 					if (j+1 < numColumns) {
-						if (getCellAt(i, j+1).isWalkway()&&getCellAt(i, j).dd==DoorDirection.RIGHT)
-							tmp.add(getCellAt(i, j+1));
+						if (getBoardCellAt(i, j+1).isWalkway()&&getBoardCellAt(i, j).dd==DoorDirection.RIGHT)
+							tmp.add(getBoardCellAt(i, j+1));
 					}
 					if (j-1 > -1) {
-						if (getCellAt(i, j-1).isWalkway()&&getCellAt(i, j).dd==DoorDirection.LEFT)
-							tmp.add(getCellAt(i, j-1));
+						if (getBoardCellAt(i, j-1).isWalkway()&&getBoardCellAt(i, j).dd==DoorDirection.LEFT)
+							tmp.add(getBoardCellAt(i, j-1));
 					}
-				}else if(!getCellAt(i, j).isRoom() ){
+				}else if(!getBoardCellAt(i, j).isRoom() ){
 					if (i+1 < numRows) {
-						if (getCellAt(i+1, j).isWalkway()||(getCellAt(i+1, j).isDoorway()&&getCellAt(i+1, j).dd==DoorDirection.UP))
-							tmp.add(getCellAt(i+1, j));
+						if (getBoardCellAt(i+1, j).isWalkway()||(getBoardCellAt(i+1, j).isDoorway()&&getBoardCellAt(i+1, j).dd==DoorDirection.UP))
+							tmp.add(getBoardCellAt(i+1, j));
 					}
 					if (i-1 > -1) {
-						if (getCellAt(i-1, j).isWalkway()||(getCellAt(i-1, j).isDoorway()&&getCellAt(i-1, j).dd==DoorDirection.DOWN))
-							tmp.add(getCellAt(i-1, j));
+						if (getBoardCellAt(i-1, j).isWalkway()||(getBoardCellAt(i-1, j).isDoorway()&&getBoardCellAt(i-1, j).dd==DoorDirection.DOWN))
+							tmp.add(getBoardCellAt(i-1, j));
 					}
 					if (j+1 < numColumns) {
-						if (getCellAt(i, j+1).isWalkway()||(getCellAt(i, j+1).isDoorway()&&getCellAt(i, j+1).dd==DoorDirection.LEFT))
-							tmp.add(getCellAt(i, j+1));
+						if (getBoardCellAt(i, j+1).isWalkway()||(getBoardCellAt(i, j+1).isDoorway()&&getBoardCellAt(i, j+1).dd==DoorDirection.LEFT))
+							tmp.add(getBoardCellAt(i, j+1));
 					}
 					if (j-1 > -1) {
-						if (getCellAt(i, j-1).isWalkway()||(getCellAt(i, j-1).isDoorway()&&getCellAt(i, j-1).dd==DoorDirection.RIGHT))
-							tmp.add(getCellAt(i, j-1));
+						if (getBoardCellAt(i, j-1).isWalkway()||(getBoardCellAt(i, j-1).isDoorway()&&getBoardCellAt(i, j-1).dd==DoorDirection.RIGHT))
+							tmp.add(getBoardCellAt(i, j-1));
 					}
 				}
-				adjMtx.put(getCellAt(i, j), tmp);
+				adjMtx.put(getBoardCellAt(i, j), tmp);
 			}
 		}
 	}
@@ -132,10 +139,10 @@ public class Board {
 		return targets;
 	}
 	public LinkedList<BoardCell> getAdjList(int row, int column){
-		return adjMtx.get(getCellAt(row,column));
+		return adjMtx.get(getBoardCellAt(row,column));
 		
 	}
-	public BoardCell getCellAt(int row, int col){
+	public BoardCell getBoardCellAt(int row, int col){
 		return board[row][col];
 		
 	}
@@ -149,5 +156,39 @@ public class Board {
 	public void setRooms(Map<Character, String> rooms) {
 		this.rooms = rooms;
 	}
-	
+	public void setPlayers(Map<String, Color> players) {
+		this.players = players;
+	}
+	public void setStartingPositions(Map<String, ArrayList<Integer>> startingPositions) {
+		this.startingPositions = startingPositions;
+	}
+	public Map<String, ArrayList<Integer>> getStartingPositions(){
+		return startingPositions;
+	}
+	public Map<String, Color> getPlayers() {
+		return players;
+	}
+	public ArrayList<Player> getGamePlayers() {
+		return gamePlayers;
+	}
+
+	public void setGamePlayers(){
+		boolean first = true;
+		for(String key: players.keySet()){
+			if(first){
+				gamePlayers.add(
+						new HumanPlayer(key, 
+										players.get(key), 
+										board[startingPositions.get(key).get(0)][startingPositions.get(key).get(1)]));
+				humanPlayer = gamePlayers.get(0);
+				first = false;
+			}else{
+				gamePlayers.add(
+						new ComputerPlayer(key, 
+										players.get(key), 
+										board[startingPositions.get(key).get(0)][startingPositions.get(key).get(1)]));
+					
+			}
+		}
+	}
 }

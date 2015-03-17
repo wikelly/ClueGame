@@ -80,7 +80,7 @@ public class clueTests {
 		room = board.getRoomCellAt(0, 0);
 		assertFalse(room.isDoorway());	
 		// Test that walkways are not doors
-		BoardCell cell = board.getCellAt(0, 5);
+		BoardCell cell = board.getBoardCellAt(0, 5);
 		assertFalse(cell.isDoorway());		
 
 	}
@@ -94,7 +94,7 @@ public class clueTests {
 		Assert.assertEquals(506, totalCells);
 		for (int row=0; row<board.getNumRows(); row++)
 			for (int col=0; col<board.getNumColumns(); col++) {
-				BoardCell cell = board.getCellAt(row, col);
+				BoardCell cell = board.getBoardCellAt(row, col);
 				if (cell.isDoorway())
 					numDoors++;
 			}
