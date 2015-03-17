@@ -8,6 +8,12 @@ public class Card {
 	public Card(){
 		super();
 	}
+	
+	public Card(String name, CardType cardType){
+		super();
+		this.name = name;
+		this.cardType = cardType;
+	}
 	public Card(String name, char cardType) {
 		super();
 		this.name = name;

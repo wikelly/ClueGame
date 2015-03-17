@@ -88,6 +88,9 @@ public class GameSetupTests {
 			case "Reverend Green":
 				assertEquals(x.getLocation(), board.getBoardCellAt(10,22));
 				break;
+			default:
+				fail("Incorrect Player found!");
+				break;
 				
 			}
 		}
@@ -184,7 +187,6 @@ public class GameSetupTests {
 	@Test
 	public void testDeal(){
 		int cardsDealt = 0;
-		System.out.println(board.getGamePlayers().get(0).getHand().size());
 		for(Player x: board.getGamePlayers()){
 			assertTrue(x.getHand().size() < 5 && x.getHand().size() > 2);
 			cardsDealt += x.getHand().size();

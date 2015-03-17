@@ -151,8 +151,8 @@ public class ClueGame {
 		
 	}
 	
-	public void handleSuggestion(String person, String room, String weapon, Player accusingPerson){
-		
+	public String handleSuggestion(String person, String room, String weapon, Player respondingPerson){
+		return null;
 	}
 	
 	public boolean checkAccusation(Solution solution){
