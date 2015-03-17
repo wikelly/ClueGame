@@ -98,11 +98,11 @@ public class GameActionTests {
 		
 		//Tests that the correct room is returned
 		assertEquals("Hall", game.handleSuggestion("Miss Scarlet", "Hall", "Pipe", testPlayer));
-		assertEquals("Conservatory", game.handleSuggestion("Miss Scarlet", "Hall", "Pipe", testPlayer));
+		assertEquals("Conservatory", game.handleSuggestion("Miss Scarlet", "Conservatory", "Pipe", testPlayer));
 
 		//Tests that the correct weapon is returned
 		assertEquals("Knife", game.handleSuggestion("Miss Scarlet", "Billiard Room", "Knife", testPlayer));
-		assertEquals("Wrench", game.handleSuggestion("Miss Scarlet", "Billiard Room", "Knife", testPlayer));
+		assertEquals("Wrench", game.handleSuggestion("Miss Scarlet", "Billiard Room", "Wrench", testPlayer));
 
 		//Tests that nothing is returned if the player has none of the cards
 		assertEquals(null, game.handleSuggestion("Miss Scarlet", "Billiard Room", "Pipe", testPlayer));

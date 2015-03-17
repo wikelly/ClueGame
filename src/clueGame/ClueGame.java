@@ -59,6 +59,7 @@ public class ClueGame {
 			e.printStackTrace();
 		}		
 		deal();
+		selectAnswer();
 	}
 	
 	public void loadConfigFiles(String layout) throws BadConfigFormatException{
@@ -148,11 +149,47 @@ public class ClueGame {
 	}
 	
 	public void selectAnswer(){
+		String person = null;
+		String room = null;
+		String weapon = null;
+		Random rand = new Random();
+		int randCard = rand.nextInt(deck.size());
+		while(person == null || room == null || weapon == null){
+			if(deck.get(randCard).getCardType() == Card.CardType.PERSON){
+				if(person == null){
+					person = deck.get(randCard).getName();
+				}
+			}else if(deck.get(randCard).getCardType() == Card.CardType.ROOM){
+				if(room == null){
+					room = deck.get(randCard).getName();
+				}
+			}else if(deck.get(randCard).getCardType() == Card.CardType.WEAPON){
+				if(weapon == null){
+					weapon = deck.get(randCard).getName();
+				}
+			}
+			
+			randCard =  rand.nextInt(deck.size());
+		}
 		
+		this.solution = new Solution(person, room, weapon);
 	}
 	
 	public String handleSuggestion(String person, String room, String weapon, Player respondingPerson){
-		return null;
+		ArrayList<String> possibleResponses = new ArrayList<String>();
+		for(Card x: respondingPerson.getHand()){
+			if(x.getName() == person || x.getName() == room || x.getName() == weapon){
+				possibleResponses.add(x.getName());
+			}
+		}
+		
+		if(possibleResponses.isEmpty()){
+			return null;
+		}
+		Random rand = new Random();
+		int randResponse = rand.nextInt(possibleResponses.size());
+		
+		return possibleResponses.get(randResponse);
 	}
 	
 	public boolean checkAccusation(Solution solution){
