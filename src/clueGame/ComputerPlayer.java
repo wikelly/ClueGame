@@ -10,12 +10,16 @@ public class ComputerPlayer extends Player {
 		super(name, color, location);
 	}
 	
-	public void pickLocation(Set<BoardCell> targets){
-		
+	public BoardCell pickLocation(Set<BoardCell> targets){
+		return new BoardCell();
 	}
 	
 	public void createSuggestion(){
 		
+	}
+	
+	public void setLastRoomVisited(char lastRoomVisited){
+		this.lastRoomVisited = lastRoomVisited;
 	}
 	
 	public void updateSeen(Card seen){

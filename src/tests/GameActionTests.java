@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -78,7 +80,7 @@ public class GameActionTests {
 		assertFalse(game.checkAccusation(testInaccurateAll));
 	}
 	
-	//The following are SUGGESTION TESTS -------------------------------
+	//The following are DISPROVING SUGGESTION TESTS -------------------------------
 	//
 	
 	//These tests are for the suggestion checking function
@@ -175,5 +177,112 @@ public class GameActionTests {
 		//Test that all players are checked up to the last
 		assertEquals("Conservatory", game.makeSuggestion("Miss Scarlet", "Conservatory", "Pipe", testPlayer1));
 	}
+	
+	//The following are COMPUTER TARGET SELECTION TESTS --------------------------
+	//
+	//From here on out, we will be using the list of players established in the last test -the human is the first,
+	//and the rest are computer players
+	
+	//This test ensures that the room is picked from a list of cells, unless it was the last room visited
+	@Test
+	public void testPickRoomFromList(){
+		ComputerPlayer testPlayer = (ComputerPlayer)board.getGamePlayers().get(1);
+		
+		//Test that the computer prefers a room over a walkway cell
+		Set<BoardCell> roomTest = new HashSet<BoardCell>();
+		roomTest.add(board.getBoardCellAt(18, 13)); // the room cell
+		roomTest.add(board.getBoardCellAt(21, 14));
+		roomTest.add(board.getBoardCellAt(19, 15));
+		for(int i = 0; i<50;i++){
+			assertEquals(board.getBoardCellAt(18, 13), testPlayer.pickLocation(roomTest));
+			testPlayer.setLastRoomVisited(' '); //make the computer forget it just entered the room
+		}
+		
+		//make it so it can choose between a walkway, the room it was just in, and another room
+		//Should NOT pick the last room, since it is now the last visited.
+		roomTest.remove(board.getBoardCellAt(19, 15)); 
+		roomTest.add(board.getBoardCellAt(19, 17));
+		testPlayer.setLastRoomVisited('D');
+		
+		//Ensure the other room is chosen every time
+		for(int i = 0; i < 50;i++){
+			assertEquals(board.getBoardCellAt(19, 17), testPlayer.pickLocation(roomTest));
+		}
+		
+	}
+	
+	//Test that all locations are chosen equally
+	@Test
+	public void testTargetSelectionRandom(){
+		ComputerPlayer testPlayer = (ComputerPlayer)board.getGamePlayers().get(1);
+		
+		int choice1 = 0;
+		int choice2 = 0;
+		int choice3 = 0;
+		Set<BoardCell> roomTest = new HashSet<BoardCell>();
+		roomTest.add(board.getBoardCellAt(21, 14));
+		roomTest.add(board.getBoardCellAt(19, 15));
+		roomTest.add(board.getBoardCellAt(18,14));
+		BoardCell chosen;
+		for(int i = 0; i < 100; i++){
+			chosen = testPlayer.pickLocation(roomTest);
+			if(chosen == board.getBoardCellAt(18,14)){
+				choice1++;
+			}else if (chosen  == board.getBoardCellAt(21,14)){
+				choice2++;
+				
+			}else if (chosen == board.getBoardCellAt(19, 15)){
+				choice3++;
+			}else{
+				fail("incorrect room chosen!");
+			}
+		}
+		//Ensure 100 total choices were made
+		assertEquals(100, (choice1 + choice2 + choice3));
+		
+		//Make sure each was chosen more than once
+		assertTrue(choice1 > 1);
+		assertTrue(choice2 > 1);
+		assertTrue(choice3 > 1);
+	}
+	
+	//Tests that if a room is the last one visited, but no other room entry exists, the choice is still random
+	@Test
+	public void testRandomChoiceRoomJustVisited(){
+		ComputerPlayer testPlayer = (ComputerPlayer)board.getGamePlayers().get(1);
+			
+		int choice1 = 0;
+		int choice2 = 0;
+		int choice3 = 0;
+		Set<BoardCell> roomTest = new HashSet<BoardCell>();
+		roomTest.add(board.getBoardCellAt(21, 14));
+		roomTest.add(board.getBoardCellAt(19, 15));
+		roomTest.add(board.getBoardCellAt(18,14));
+		BoardCell chosen;
+		for(int i = 0; i < 100; i++){
+			testPlayer.setLastRoomVisited('D');
+			chosen = testPlayer.pickLocation(roomTest);
+			if(chosen == board.getBoardCellAt(18,14)){
+				choice1++;
+			}else if (chosen  == board.getBoardCellAt(21,14)){
+				choice2++;
+				
+			}else if (chosen == board.getBoardCellAt(19, 15)){
+				choice3++;
+			}else{
+				fail("incorrect room chosen!");
+			}
+		}
+		//Ensure 100 total choices were made
+		assertEquals(100, (choice1 + choice2 + choice3));
+		
+		//Make sure each was chosen more than once
+		assertTrue(choice1 > 1);
+		assertTrue(choice2 > 1);
+		assertTrue(choice3 > 1);
+	}
+	
+	
+	//The following are COMPUTER SUGGESTION TESTS ----------------------
 
 }

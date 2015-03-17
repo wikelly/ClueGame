@@ -177,7 +177,15 @@ public class ClueGame {
 	
 	
 	public String makeSuggestion(String person, String room, String weapon, Player suggestingPlayer){
-		
+		String response = null;
+		for(Player x:gameBoard.getGamePlayers()){
+			if(x != suggestingPlayer){
+				response = handleSuggestion(person, room, weapon, x);
+			}
+			if(response != null){
+				return response;
+			}
+		}
 		return null;
 	}
 	
