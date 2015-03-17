@@ -171,6 +171,9 @@ public class Board {
 	public ArrayList<Player> getGamePlayers() {
 		return gamePlayers;
 	}
+	public void setGamePlayersForTest(ArrayList<Player> testPlayers){
+		this.gamePlayers = testPlayers;
+	}
 
 	public void setGamePlayers(){
 		boolean first = true;

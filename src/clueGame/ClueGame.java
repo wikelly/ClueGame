@@ -13,7 +13,7 @@ import java.util.Random;
 import java.lang.reflect.Field;
 
 public class ClueGame {
-	private Board b = new Board();
+	private Board gameBoard = new Board();
 	private Map<Character, String> rooms = new HashMap<Character, String>();
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private Map<String,ArrayList<Integer>> startingPositions = new HashMap<String, ArrayList<Integer>>();
@@ -63,7 +63,7 @@ public class ClueGame {
 	}
 	
 	public void loadConfigFiles(String layout) throws BadConfigFormatException{
-		b.loadBoardConfig(layout);
+		gameBoard.loadBoardConfig(layout);
 	}
 	
 	public void loadRoomConfig(String legend) throws BadConfigFormatException{
@@ -86,7 +86,7 @@ public class ClueGame {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}	
-		b.setRooms(rooms);
+		gameBoard.setRooms(rooms);
 	}
 	
 	public void loadPlayerConfig(String player) throws BadConfigFormatException{
@@ -116,9 +116,9 @@ public class ClueGame {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}	
-		b.setPlayers(players);
-		b.setStartingPositions(startingPositions);
-		b.setGamePlayers();
+		gameBoard.setPlayers(players);
+		gameBoard.setStartingPositions(startingPositions);
+		gameBoard.setGamePlayers();
 	}
 	
 	public Color convertColor(String strColor) {
@@ -137,7 +137,7 @@ public class ClueGame {
 		ArrayList<Card> dealDeck = new ArrayList<Card>(deck);
 		Random rand = new Random();
 		while(!dealDeck.isEmpty()){
-			for(Player x: b.getGamePlayers()){
+			for(Player x: gameBoard.getGamePlayers()){
 				if(dealDeck.isEmpty()){
 					break;
 				}
@@ -175,6 +175,12 @@ public class ClueGame {
 		this.solution = new Solution(person, room, weapon);
 	}
 	
+	
+	public String makeSuggestion(String person, String room, String weapon, Player suggestingPlayer){
+		
+		return null;
+	}
+	
 	public String handleSuggestion(String person, String room, String weapon, Player respondingPerson){
 		ArrayList<String> possibleResponses = new ArrayList<String>();
 		for(Card x: respondingPerson.getHand()){
@@ -207,7 +213,7 @@ public class ClueGame {
 	}
 
 	public Board getBoard() {
-		return b;
+		return gameBoard;
 	}
 	public ArrayList<Card> getDeck(){
 		return deck;

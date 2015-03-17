@@ -139,6 +139,7 @@ public class GameActionTests {
 		assertTrue(personCount > 0);
 	}
 	
+	//Tests suggestions made to all the players, and the responses
 	@Test
 	public void testAllPlayersQueried(){
 		ArrayList<Player> testPlayers = new ArrayList<Player>();
@@ -151,8 +152,28 @@ public class GameActionTests {
 		testPlayer2.getHand().add(greenCard);
 		testPlayer3.getHand().add(knifeCard);
 		testPlayer4.getHand().add(conservatoryCard);
-
 		
+		testPlayers.add(testPlayer1);
+		testPlayers.add(testPlayer2);
+		testPlayers.add(testPlayer3);
+		testPlayers.add(testPlayer4);
+		
+		board.setGamePlayersForTest(testPlayers);
+		
+		//Test that nothing is returned if no player has the suggested card
+		assertEquals(null, game.makeSuggestion("Miss Scarlet", "Hall", "Pipe", testPlayer1));
+
+		//Test that the human player can disprove correctly
+		assertEquals("Colonel Mustard", game.makeSuggestion("Colonel Mustard", "Hall", "Pipe", testPlayer2));
+		
+		//Test that the one making the suggestion cannot disprove it
+		assertEquals(null, game.makeSuggestion("Colonel Mustard", "Hall", "Pipe", testPlayer1));
+		
+		//Test that the first player disproves the suggestion rather than the second
+		assertEquals("Colonel Mustard", game.makeSuggestion("Colonel Mustard", "Hall", "Knife", testPlayer2));
+		
+		//Test that all players are checked up to the last
+		assertEquals("Conservatory", game.makeSuggestion("Miss Scarlet", "Conservatory", "Pipe", testPlayer1));
 	}
 
 }
