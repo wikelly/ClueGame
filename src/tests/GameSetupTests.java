@@ -30,7 +30,8 @@ public class GameSetupTests {
 	public static final int NUM_COLUMNS = 23;
 	public static final int NUM_PLAYERS = 6;
 	public static final int NUM_WEAPONS = 6;
-	public static final int NUM_CARDS = 21;
+	public static final int NUM_DECK_CARDS = 21;
+	public static final int NUM_CARDS = 18;
 	
 	
 	@BeforeClass
@@ -47,7 +48,7 @@ public class GameSetupTests {
 	//Test that the players are loaded
 	@Test
 	public void testPlayers() {
-		Map<String, Color> players = board.getPlayers();
+		Map<String, Color> players = game.getPlayers();
 		
 		assertTrue(players.containsKey("Colonel Mustard"));
 		assertTrue(players.containsKey("Professor Plum"));
@@ -60,14 +61,14 @@ public class GameSetupTests {
 	//Tests that there are the correct number of players
 	@Test
 	public void testPlayerNumber(){
-		ArrayList<Player> gamePlayers = board.getGamePlayers();
+		ArrayList<Player> gamePlayers = game.getGamePlayers();
 		assertEquals(gamePlayers.size(), NUM_PLAYERS);
 	}
 	
 	//Tests the Player Initial Locations
 	@Test
 	public void testPlayerLocation(){
-		ArrayList<Player> gamePlayers = board.getGamePlayers();
+		ArrayList<Player> gamePlayers = game.getGamePlayers();
 		for(Player x: gamePlayers){
 			switch(x.getName()){
 			case "Colonel Mustard":
@@ -100,7 +101,7 @@ public class GameSetupTests {
 	//Tests the players have proper colors
 	@Test
 	public void testPlayerColors() {
-		Map<String, Color> players = board.getPlayers();
+		Map<String, Color> players = game.getPlayers();
 		assertEquals(Color.YELLOW, players.get("Colonel Mustard"));
 		assertEquals(Color.MAGENTA, players.get("Professor Plum"));
 		assertEquals(Color.RED, players.get("Miss Scarlet"));
@@ -116,7 +117,7 @@ public class GameSetupTests {
 	@Test
 	public void testDeckSize(){
 		ArrayList<Card> testDeck = game.getDeck();
-		assertEquals( NUM_CARDS, testDeck.size());
+		assertEquals( NUM_DECK_CARDS, testDeck.size());
 		
 	}
 	
@@ -187,7 +188,7 @@ public class GameSetupTests {
 	@Test
 	public void testDeal(){
 		int cardsDealt = 0;
-		for(Player x: board.getGamePlayers()){
+		for(Player x: game.getGamePlayers()){
 			assertTrue(x.getHand().size() < 5 && x.getHand().size() > 2);
 			cardsDealt += x.getHand().size();
 		}
@@ -200,7 +201,7 @@ public class GameSetupTests {
 	@Test
 	public void testUniqueCards(){
 		Set<Card> dealtCards = new HashSet<Card>();
-		for(Player x: board.getGamePlayers()){
+		for(Player x: game.getGamePlayers()){
 			for(Card y: x.getHand()){
 				if(dealtCards.contains(y)){
 					fail("card already dealt");

@@ -15,11 +15,8 @@ import java.util.Set;
 
 public class Board {
 	private int numRows, numColumns;
-	private Player humanPlayer;
+
 	private Map<Character, String> rooms;
-	private Map<String, Color> players;
-	private ArrayList<Player> gamePlayers = new ArrayList<Player>();
-	private Map<String,ArrayList<Integer>> startingPositions = new HashMap<String, ArrayList<Integer>>();
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private Map<BoardCell, LinkedList<BoardCell>> adjMtx = new HashMap<BoardCell, LinkedList<BoardCell>>();
@@ -156,42 +153,6 @@ public class Board {
 	public void setRooms(Map<Character, String> rooms) {
 		this.rooms = rooms;
 	}
-	public void setPlayers(Map<String, Color> players) {
-		this.players = players;
-	}
-	public void setStartingPositions(Map<String, ArrayList<Integer>> startingPositions) {
-		this.startingPositions = startingPositions;
-	}
-	public Map<String, ArrayList<Integer>> getStartingPositions(){
-		return startingPositions;
-	}
-	public Map<String, Color> getPlayers() {
-		return players;
-	}
-	public ArrayList<Player> getGamePlayers() {
-		return gamePlayers;
-	}
-	public void setGamePlayersForTest(ArrayList<Player> testPlayers){
-		this.gamePlayers = testPlayers;
-	}
 
-	public void setGamePlayers(){
-		boolean first = true;
-		for(String key: players.keySet()){
-			if(first){
-				gamePlayers.add(
-						new HumanPlayer(key, 
-										players.get(key), 
-										board[startingPositions.get(key).get(0)][startingPositions.get(key).get(1)]));
-				humanPlayer = gamePlayers.get(0);
-				first = false;
-			}else{
-				gamePlayers.add(
-						new ComputerPlayer(key, 
-										players.get(key), 
-										board[startingPositions.get(key).get(0)][startingPositions.get(key).get(1)]));
-					
-			}
-		}
-	}
+	
 }

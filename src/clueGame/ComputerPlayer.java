@@ -15,11 +15,11 @@ public class ComputerPlayer extends Player {
 	
 	public BoardCell pickLocation(Set<BoardCell> targets){
 		//copies the set to a new Set we can delete/manipulate
-		Set<BoardCell> newTargets = new HashSet<BoardCell>(targets);
+	
 		ArrayList<BoardCell> roomTargets = new ArrayList<BoardCell>();
 		ArrayList<BoardCell> otherTargets = new ArrayList<BoardCell>();
 		
-		for(BoardCell x: newTargets){
+		for(BoardCell x: targets){
 			if(x.isRoom()){
 				if(((RoomCell)x).getRoomInitial() == lastRoomVisited){
 					otherTargets.add(x);

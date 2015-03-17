@@ -19,6 +19,7 @@ import clueGame.ComputerPlayer;
 import clueGame.HumanPlayer;
 import clueGame.Player;
 import clueGame.Solution;
+import clueGame.Suggestion;
 
 public class GameActionTests {
 	
@@ -160,22 +161,22 @@ public class GameActionTests {
 		testPlayers.add(testPlayer3);
 		testPlayers.add(testPlayer4);
 		
-		board.setGamePlayersForTest(testPlayers);
+		game.setGamePlayersForTest(testPlayers);
 		
 		//Test that nothing is returned if no player has the suggested card
-		assertEquals(null, game.makeSuggestion("Miss Scarlet", "Hall", "Pipe", testPlayer1));
+		assertEquals(null, game.checkSuggestion("Miss Scarlet", "Hall", "Pipe", testPlayer1));
 
 		//Test that the human player can disprove correctly
-		assertEquals("Colonel Mustard", game.makeSuggestion("Colonel Mustard", "Hall", "Pipe", testPlayer2));
+		assertEquals("Colonel Mustard", game.checkSuggestion("Colonel Mustard", "Hall", "Pipe", testPlayer2));
 		
 		//Test that the one making the suggestion cannot disprove it
-		assertEquals(null, game.makeSuggestion("Colonel Mustard", "Hall", "Pipe", testPlayer1));
+		assertEquals(null, game.checkSuggestion("Colonel Mustard", "Hall", "Pipe", testPlayer1));
 		
 		//Test that the first player disproves the suggestion rather than the second
-		assertEquals("Colonel Mustard", game.makeSuggestion("Colonel Mustard", "Hall", "Knife", testPlayer2));
+		assertEquals("Colonel Mustard", game.checkSuggestion("Colonel Mustard", "Hall", "Knife", testPlayer2));
 		
 		//Test that all players are checked up to the last
-		assertEquals("Conservatory", game.makeSuggestion("Miss Scarlet", "Conservatory", "Pipe", testPlayer1));
+		assertEquals("Conservatory", game.checkSuggestion("Miss Scarlet", "Conservatory", "Pipe", testPlayer1));
 	}
 	
 	//The following are COMPUTER TARGET SELECTION TESTS --------------------------
@@ -186,7 +187,7 @@ public class GameActionTests {
 	//This test ensures that the room is picked from a list of cells, unless it was the last room visited
 	@Test
 	public void testPickRoomFromList(){
-		ComputerPlayer testPlayer = (ComputerPlayer)board.getGamePlayers().get(1);
+		ComputerPlayer testPlayer = (ComputerPlayer)game.getGamePlayers().get(1);
 		
 		//Test that the computer prefers a room over a walkway cell
 		Set<BoardCell> roomTest = new HashSet<BoardCell>();
@@ -215,7 +216,7 @@ public class GameActionTests {
 	//Test that all locations are chosen equally
 	@Test
 	public void testTargetSelectionRandom(){
-		ComputerPlayer testPlayer = (ComputerPlayer)board.getGamePlayers().get(1);
+		ComputerPlayer testPlayer = (ComputerPlayer)game.getGamePlayers().get(1);
 		
 		int choice1 = 0;
 		int choice2 = 0;
@@ -250,7 +251,7 @@ public class GameActionTests {
 	//Tests that if a room is the last one visited, but no other room entry exists, the choice is still random
 	@Test
 	public void testRandomChoiceRoomJustVisited(){
-		ComputerPlayer testPlayer = (ComputerPlayer)board.getGamePlayers().get(1);
+		ComputerPlayer testPlayer = (ComputerPlayer)game.getGamePlayers().get(1);
 			
 		int choice1 = 0;
 		int choice2 = 0;
@@ -285,5 +286,78 @@ public class GameActionTests {
 	
 	
 	//The following are COMPUTER SUGGESTION TESTS ----------------------
+	//
+	@Test
+	public void testOnePossibleSuggestion(){
+		ComputerPlayer testPlayer = (ComputerPlayer)game.getGamePlayers().get(1);
+		ArrayList<Card> testSeen = new ArrayList<Card>();
+		
+		testPlayer.getHand().add(mustardCard);
+		testPlayer.getHand().add(greenCard);
+		testPlayer.getHand().add(hallCard);
+		testPlayer.getHand().add(conservatoryCard);
+		testPlayer.getHand().add(knifeCard);
+		testPlayer.getHand().add(wrenchCard);
+		
+		//Makes sure the player only thinks the cards in their hand exist in the game
+		game.setDeck(testPlayer.getHand());
+		
+		testSeen.add(mustardCard);
+		testSeen.add(hallCard);
+		testSeen.add(knifeCard);
+		
+		testPlayer.setLocation(board.getBoardCellAt(18, 13));
+		
+		//The computer player should suggest Mr. Green, in the Dining Room, with the wrench, since he has seen all other player/weapon options,
+		//and is currently in the Dining Room
+		Suggestion testSuggestion = new Suggestion("Reverend Green", board.getBoardCellAt(18, 13), "Wrench");
+		
+		assertTrue(testSuggestion.equals(testPlayer.makeSuggestion()));
+		
+		
+	}
+	
+	//This tests a situation where the computer may choose between a couple of different suggestions
+	@Test
+	public void testMultipleSuggestionChoices(){
+		ComputerPlayer testPlayer = (ComputerPlayer)game.getGamePlayers().get(1);
+		ArrayList<Card> testSeen = new ArrayList<Card>();
+		
+		testPlayer.getHand().add(mustardCard);
+		testPlayer.getHand().add(greenCard);
+		testPlayer.getHand().add(hallCard);
+		testPlayer.getHand().add(conservatoryCard);
+		testPlayer.getHand().add(knifeCard);
+		testPlayer.getHand().add(wrenchCard);
+		
+		game.setDeck(testPlayer.getHand());
+		
+		testSeen.add(hallCard);
+		testSeen.add(knifeCard);
+		
+		testPlayer.setLocation(board.getBoardCellAt(18, 13));
+		
+		Suggestion testSuggestion = new Suggestion("Reverend Green", board.getBoardCellAt(18, 13), "Wrench");
+		Suggestion testSuggestion2 = new Suggestion("Colonel Mustard", board.getBoardCellAt(18, 13), "Wrench");
+		Suggestion result = testPlayer.makeSuggestion();
+		int count1 = 0;
+		int count2 = 0;
+		
+		for(int i =0; i< 50;i++){
+			if(testSuggestion.equals(testPlayer.makeSuggestion())){
+				count1++;
+			}else if(testSuggestion2.equals(testPlayer.makeSuggestion())){
+				count2++;
+			}else{
+				fail("incorrect suggestion returned");
+			}
+		}
+		
+		assertEquals(50, (count1+count2));
+		
+		assertTrue(count1 > 1);
+		assertTrue(count2 > 1);
+	}
+	
 
 }

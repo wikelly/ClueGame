@@ -8,14 +8,19 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.lang.reflect.Field;
 
 public class ClueGame {
 	private Board gameBoard = new Board();
+	private Player humanPlayer;
 	private Map<Character, String> rooms = new HashMap<Character, String>();
 	private ArrayList<Card> deck = new ArrayList<Card>();
+	private Set<Card> dontDeal = new HashSet<Card>();
+	private ArrayList<Player> gamePlayers = new ArrayList<Player>();
 	private Map<String,ArrayList<Integer>> startingPositions = new HashMap<String, ArrayList<Integer>>();
 	private Map<String, Color> players = new HashMap<String, Color>();
 	private Solution solution;
@@ -58,8 +63,9 @@ public class ClueGame {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}		
-		deal();
 		selectAnswer();
+		deal();
+		
 	}
 	
 	public void loadConfigFiles(String layout) throws BadConfigFormatException{
@@ -116,9 +122,9 @@ public class ClueGame {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}	
-		gameBoard.setPlayers(players);
-		gameBoard.setStartingPositions(startingPositions);
-		gameBoard.setGamePlayers();
+		
+		setGamePlayers();
+
 	}
 	
 	public Color convertColor(String strColor) {
@@ -135,15 +141,22 @@ public class ClueGame {
 	
 	public void deal(){
 		ArrayList<Card> dealDeck = new ArrayList<Card>(deck);
+		for(Card x: dontDeal){
+			if(dealDeck.contains(x)){
+				dealDeck.remove(x);
+			}
+		}
 		Random rand = new Random();
 		while(!dealDeck.isEmpty()){
-			for(Player x: gameBoard.getGamePlayers()){
+			for(Player x: gamePlayers){
 				if(dealDeck.isEmpty()){
 					break;
 				}
 				int randInt =  rand.nextInt(dealDeck.size());
 				x.getHand().add(dealDeck.get(randInt));
+				x.seenCard(dealDeck.get(randInt));
 				dealDeck.remove(randInt);
+				
 			}
 		}
 	}
@@ -153,32 +166,36 @@ public class ClueGame {
 		String room = null;
 		String weapon = null;
 		Random rand = new Random();
-		int randCard = rand.nextInt(deck.size());
+		int randCard;
 		while(person == null || room == null || weapon == null){
+			randCard =  rand.nextInt(deck.size());
 			if(deck.get(randCard).getCardType() == Card.CardType.PERSON){
 				if(person == null){
 					person = deck.get(randCard).getName();
+					dontDeal.add(deck.get(randCard));
 				}
 			}else if(deck.get(randCard).getCardType() == Card.CardType.ROOM){
 				if(room == null){
 					room = deck.get(randCard).getName();
+					dontDeal.add(deck.get(randCard));
 				}
 			}else if(deck.get(randCard).getCardType() == Card.CardType.WEAPON){
 				if(weapon == null){
 					weapon = deck.get(randCard).getName();
+					dontDeal.add(deck.get(randCard));
 				}
 			}
 			
-			randCard =  rand.nextInt(deck.size());
+			
 		}
 		
 		this.solution = new Solution(person, room, weapon);
 	}
 	
 	
-	public String makeSuggestion(String person, String room, String weapon, Player suggestingPlayer){
+	public String checkSuggestion(String person, String room, String weapon, Player suggestingPlayer){
 		String response = null;
-		for(Player x:gameBoard.getGamePlayers()){
+		for(Player x: gamePlayers){
 			if(x != suggestingPlayer){
 				response = handleSuggestion(person, room, weapon, x);
 			}
@@ -220,11 +237,16 @@ public class ClueGame {
 		ClueGame g = new ClueGame("ClueLayout.csv", "RoomLegend.txt", "Player.txt", "Deck.txt");
 	}
 
+	//GETTERS AND SETTERS
+	//
 	public Board getBoard() {
 		return gameBoard;
 	}
 	public ArrayList<Card> getDeck(){
 		return deck;
+	}
+	public void setDeck(ArrayList<Card> deck){
+		this.deck = deck;
 	}
 	public Map<Character, String> getRooms() {
 		return rooms;
@@ -234,4 +256,36 @@ public class ClueGame {
 		this.solution = solution;
 	}
 	
+	public void setPlayers(Map<String, Color> players) {
+		this.players = players;
+	}
+	public Map<String, Color> getPlayers() {
+		return players;
+	}
+	public ArrayList<Player> getGamePlayers() {
+		return gamePlayers;
+	}
+	public void setGamePlayersForTest(ArrayList<Player> testPlayers){
+		this.gamePlayers = testPlayers;
+	}
+
+	public void setGamePlayers(){
+		boolean first = true;
+		for(String key: players.keySet()){
+			if(first){
+				gamePlayers.add(
+						new HumanPlayer(key, 
+										players.get(key), 
+										gameBoard.getBoardCellAt(startingPositions.get(key).get(0), startingPositions.get(key).get(1))));
+				humanPlayer = gamePlayers.get(0);
+				first = false;
+			}else{
+				gamePlayers.add(
+						new ComputerPlayer(key, 
+										players.get(key), 
+										gameBoard.getBoardCellAt(startingPositions.get(key).get(0), startingPositions.get(key).get(1))));
+					
+			}
+		}
+	}
 }

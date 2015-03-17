@@ -8,18 +8,16 @@ public class Player {
 	private Color color;
 	private ArrayList<Card> hand = new ArrayList<Card>();
 	private BoardCell location;
+	private ArrayList<Card> seen = new ArrayList<Card>();
 	
 	public Player(String name, Color color, BoardCell location){
 		this.name =  name;
 		this.color = color;
 		this.location = location;
 	}
-	
-	public Card disproveSuggestion(String person, String room, String weapon){
-		
-		return new Card();
+	public Suggestion makeSuggestion(){
+		return new Suggestion("",new BoardCell(), "");
 	}
-	
 	//Set location method for initial board setup
 	public void setLocation(BoardCell currentLocation){
 		location = currentLocation;
@@ -40,5 +38,11 @@ public class Player {
 	}
 	public ArrayList<Card> getHand(){
 		return hand;
+	}
+	public void setSeen(ArrayList<Card> seen){
+		this.seen = seen;
+	}
+	public void seenCard(Card card){
+		seen.add(card);
 	}
 }
