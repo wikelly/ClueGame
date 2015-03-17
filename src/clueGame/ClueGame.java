@@ -18,6 +18,7 @@ public class ClueGame {
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private Map<String,ArrayList<Integer>> startingPositions = new HashMap<String, ArrayList<Integer>>();
 	private Map<String, Color> players = new HashMap<String, Color>();
+	private Solution solution;
 	
 	public ClueGame() throws BadConfigFormatException {
 		loadRoomConfig("ClueLegend2.txt");
@@ -157,6 +158,7 @@ public class ClueGame {
 	public boolean checkAccusation(Solution solution){
 		return false;
 	}
+	
 	public static void main(String[] args) throws BadConfigFormatException {
 		ClueGame g = new ClueGame("ClueLayout.csv", "RoomLegend.txt", "Player.txt", "Deck.txt");
 	}
@@ -169,6 +171,10 @@ public class ClueGame {
 	}
 	public Map<Character, String> getRooms() {
 		return rooms;
+	}
+	
+	public void setSolution(Solution solution){
+		this.solution = solution;
 	}
 	
 }
