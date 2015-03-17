@@ -34,7 +34,7 @@ public class GameSetupTests {
 	
 	@BeforeClass
 	public static void setUp() throws BadConfigFormatException {
-		ClueGame game = new ClueGame("ClueLayout.csv", "RoomLegend.txt", "Players.txt", "Deck.txt");
+		game = new ClueGame("ClueLayout.csv", "RoomLegend.txt", "Players.txt", "Deck.txt");
 		//game.loadConfigFiles("ClueLayout.csv");
 		board = game.getBoard();
 		//Map<String, String> players = board.getPlayers();

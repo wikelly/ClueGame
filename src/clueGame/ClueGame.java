@@ -14,7 +14,7 @@ import java.lang.reflect.Field;
 public class ClueGame {
 	private Board b = new Board();
 	private Map<Character, String> rooms = new HashMap<Character, String>();
-	private ArrayList<Card> deck;
+	private ArrayList<Card> deck = new ArrayList<Card>();
 	private Map<String,ArrayList<Integer>> startingPositions = new HashMap<String, ArrayList<Integer>>();
 	private Map<String, Color> players = new HashMap<String, Color>();
 	
