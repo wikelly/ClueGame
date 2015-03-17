@@ -156,7 +156,13 @@ public class ClueGame {
 	}
 	
 	public boolean checkAccusation(Solution solution){
-		return false;
+		if(solution.getPerson() == this.solution.getPerson()
+				&& solution.getRoom() == this.solution.getRoom()
+				&& solution.getWeapon() == this.solution.getWeapon()){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	public static void main(String[] args) throws BadConfigFormatException {
