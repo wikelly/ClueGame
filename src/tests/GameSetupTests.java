@@ -109,7 +109,7 @@ public class GameSetupTests {
 	@Test
 	public void testDeckSize(){
 		ArrayList<Card> testDeck = game.getDeck();
-		assertEquals(testDeck.size(), NUM_CARDS);
+		assertEquals( NUM_CARDS, testDeck.size());
 		
 	}
 
@@ -117,6 +117,7 @@ public class GameSetupTests {
 	@Test
 	public void testDeal(){
 		int cardsDealt = 0;
+		System.out.println(board.getGamePlayers().get(0).getHand().size());
 		for(Player x: board.getGamePlayers()){
 			assertTrue(x.getHand().size() < 5 && x.getHand().size() > 2);
 			cardsDealt += x.getHand().size();
@@ -139,7 +140,6 @@ public class GameSetupTests {
 				}
 			}
 		}
-		
 		assertEquals(dealtCards.size(), NUM_CARDS);
 	}
 }

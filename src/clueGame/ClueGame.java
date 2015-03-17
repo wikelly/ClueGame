@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.lang.reflect.Field;
 
 public class ClueGame {
@@ -48,13 +49,15 @@ public class ClueGame {
 						throw new BadConfigFormatException();
 					this.deck.add(new Card(tmp2[1], tmp2[0].charAt(0)));
 				}
+				br.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}		
-		
+		deal();
 	}
 	
 	public void loadConfigFiles(String layout) throws BadConfigFormatException{
@@ -129,7 +132,18 @@ public class ClueGame {
 	} 
 	
 	public void deal(){
-		
+		ArrayList<Card> dealDeck = new ArrayList<Card>(deck);
+		Random rand = new Random();
+		while(!dealDeck.isEmpty()){
+			for(Player x: b.getGamePlayers()){
+				if(dealDeck.isEmpty()){
+					break;
+				}
+				int randInt =  rand.nextInt(dealDeck.size());
+				x.getHand().add(dealDeck.get(randInt));
+				dealDeck.remove(randInt);
+			}
+		}
 	}
 	
 	public void selectAnswer(){

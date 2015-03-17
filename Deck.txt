@@ -13,8 +13,6 @@ Study, R
 Dining room, R
 Lounge, R
 Hall, R
-Closet, R
-Walkway, R
 Knife, W
 Pipe, W
 Revolver, W
