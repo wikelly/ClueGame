@@ -48,7 +48,7 @@ public class ClueGame {
 					tmp2 = tmp.split(", ");
 					if (tmp2.length != 2)
 						throw new BadConfigFormatException();
-					this.deck.add(new Card(tmp2[1], tmp2[0].charAt(0)));
+					this.deck.add(new Card(tmp2[0], tmp2[1].charAt(0)));
 				}
 				br.close();
 			} catch (IOException e) {

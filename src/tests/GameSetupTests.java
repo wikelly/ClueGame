@@ -25,10 +25,11 @@ public class GameSetupTests {
 
 	private static Board board;
 	private static ClueGame game;
-	public static final int NUM_ROOMS = 11;
+	public static final int NUM_ROOM_CARDS = 9;
 	public static final int NUM_ROWS = 22;
 	public static final int NUM_COLUMNS = 23;
 	public static final int NUM_PLAYERS = 6;
+	public static final int NUM_WEAPONS = 6;
 	public static final int NUM_CARDS = 21;
 	
 	
@@ -55,15 +56,17 @@ public class GameSetupTests {
 		assertTrue(players.containsKey("Reverend Green"));
 		assertTrue(players.containsKey("Mrs. Peacock"));
 	}
+	
+	//Tests that there are the correct number of players
 	@Test
 	public void testPlayerNumber(){
 		ArrayList<Player> gamePlayers = board.getGamePlayers();
 		assertEquals(gamePlayers.size(), NUM_PLAYERS);
 	}
-	//Tests the Player Initial Location
+	
+	//Tests the Player Initial Locations
 	@Test
 	public void testPlayerLocation(){
-		//board.setGamePlayers();
 		ArrayList<Player> gamePlayers = board.getGamePlayers();
 		for(Player x: gamePlayers){
 			switch(x.getName()){
@@ -91,7 +94,7 @@ public class GameSetupTests {
 		
 	}
 	
-	//Tests the players proper colors
+	//Tests the players have proper colors
 	@Test
 	public void testPlayerColors() {
 		Map<String, Color> players = board.getPlayers();
@@ -105,11 +108,75 @@ public class GameSetupTests {
 	
 	//The following are DECK LOADING AND DEALING TESTS---------------------------
 	//
-	//Test loading the deck
+	
+	//Test that the correct number of cards are loaded
 	@Test
 	public void testDeckSize(){
 		ArrayList<Card> testDeck = game.getDeck();
 		assertEquals( NUM_CARDS, testDeck.size());
+		
+	}
+	
+	//Test that all the different cards are loaded
+	@Test
+	public void testAllCards(){
+		ArrayList<Card> testDeck = game.getDeck();
+		Set<String> cardNames =  new HashSet<String>();
+		for(Card x: testDeck){
+			cardNames.add(x.getName());
+		}
+	
+		assertTrue(cardNames.contains("Colonel Mustard"));
+		assertTrue(cardNames.contains("Professor Plum"));
+		assertTrue(cardNames.contains("Miss Scarlet"));
+		assertTrue(cardNames.contains("Mrs. Peacock"));
+		assertTrue(cardNames.contains("Mrs. White"));
+		assertTrue(cardNames.contains("Reverend Green"));
+		assertTrue(cardNames.contains("Conservatory"));
+		assertTrue(cardNames.contains("Kitchen"));
+		assertTrue(cardNames.contains("Ballroom"));
+		assertTrue(cardNames.contains("Billiard Room"));
+		assertTrue(cardNames.contains("Library"));
+		assertTrue(cardNames.contains("Study"));
+		assertTrue(cardNames.contains("Dining Room"));
+		assertTrue(cardNames.contains("Lounge"));
+		assertTrue(cardNames.contains("Hall"));
+		assertTrue(cardNames.contains("Knife"));
+		assertTrue(cardNames.contains("Pipe"));
+		assertTrue(cardNames.contains("Revolver"));
+		assertTrue(cardNames.contains("Candlestick"));
+		assertTrue(cardNames.contains("Rope"));
+		assertTrue(cardNames.contains("Wrench"));
+	}
+	
+	//Testing Accurate read-in of card types
+	@Test
+	public void testCardTypes(){
+		ArrayList<Card> testDeck = game.getDeck();
+		int people = 0;
+		int rooms = 0;
+		int weapons = 0;
+		
+		for(Card x: testDeck){
+			switch(x.getCardType()){
+			case PERSON:
+				people++;
+				break;
+			case WEAPON:
+				weapons++;
+				break;
+			case ROOM:
+				rooms++;
+				break;
+				
+				
+			}
+			
+			
+		}
+		assertEquals(NUM_PLAYERS, people);
+		assertEquals(NUM_ROOM_CARDS, rooms);
+		assertEquals(NUM_WEAPONS, weapons);
 		
 	}
 

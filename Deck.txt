@@ -7,10 +7,10 @@ Reverend Green, P
 Conservatory, R
 Kitchen, R
 Ballroom, R
-Billiard room, R
+Billiard Room, R
 Library, R
 Study, R
-Dining room, R
+Dining Room, R
 Lounge, R
 Hall, R
 Knife, W
