@@ -35,23 +35,25 @@ public class ClueGame {
 	}
 	
 	private void loadDeckConfig(String deck) throws BadConfigFormatException{
-		/*File f = new File(deck);
+		File f = new File(deck);
 		try {
-			FileReader br = new FileReader(f);
+			BufferedReader br = new BufferedReader(new FileReader(f));
 			String tmp;
+			String[] tmp2;
 			try {
-				while ((tmp=br.readNextLine())!=null){
-					deck.add(br.readline());
+				while ((tmp=br.readLine())!=null){
+					tmp2 = new String[2];
+					tmp2 = tmp.split(", ");
+					if (tmp2.length != 2)
+						throw new BadConfigFormatException();
+					this.deck.add(new Card(tmp2[1], tmp2[0].charAt(0)));
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}	
-		b.setRooms(rooms);*/
-		
-	//}
+		}		
 		
 	}
 	
@@ -148,7 +150,9 @@ public class ClueGame {
 	public Board getBoard() {
 		return b;
 	}
-
+	public ArrayList<Card> getDeck(){
+		return deck;
+	}
 	public Map<Character, String> getRooms() {
 		return rooms;
 	}

@@ -8,10 +8,22 @@ public class Card {
 	public Card(){
 		super();
 	}
-	public Card(String name, CardType cardType) {
+	public Card(String name, char cardType) {
 		super();
 		this.name = name;
-		this.cardType = cardType;
+		
+		switch(cardType){
+		case 'P':
+			this.cardType = CardType.PERSON;
+			break;
+		case 'W':
+			this.cardType = CardType.WEAPON;
+			break;
+		case 'R':
+			this.cardType = CardType.ROOM;
+			break;
+			
+		}
 	}
 	
 	public boolean equals(Card otherCard){
