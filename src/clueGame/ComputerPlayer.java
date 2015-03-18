@@ -41,12 +41,26 @@ public class ComputerPlayer extends Player {
 		return otherTargets.get(randTarget);
 	}
 	
-	public void createSuggestion(){
+	public Suggestion makeSuggestion(ArrayList<Card> people, ArrayList<Card> weapons){
+		Random rand = new Random();
+		ArrayList<Card> people2 = new ArrayList<Card>(people);
+		ArrayList<Card> weapons2 = new ArrayList<Card>(weapons);
 		
+		people2.removeAll(this.seen);
+		weapons2.removeAll(this.seen);
+		
+		int randChoice =  rand.nextInt(people2.size());
+		int randChoice2 = rand.nextInt(weapons2.size());
+		
+		return new Suggestion(people2.get(randChoice).getName(), ClueGame.getRooms().get(this.lastRoomVisited), weapons2.get(randChoice2).getName());
 	}
 	
 	public void setLastRoomVisited(char lastRoomVisited){
 		this.lastRoomVisited = lastRoomVisited;
+	}
+	
+	public char getLastRoomVisited(){
+		return this.lastRoomVisited;
 	}
 	
 	public void updateSeen(Card seen){

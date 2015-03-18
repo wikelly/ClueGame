@@ -2,13 +2,19 @@ package clueGame;
 
 public class Suggestion {
 	private String player;
-	private BoardCell room;
+	private String room;
 	private String weapon;
 	
 	public Suggestion(){
 		super();
 	}
 	
+	@Override
+	public String toString() {
+		return "Suggestion [player=" + player + ", room=" + room + ", weapon="
+				+ weapon + "]";
+	}
+
 	@Override
 	public boolean equals(Object suggestion){
 		Suggestion suggestion2 = (Suggestion)suggestion;
@@ -21,7 +27,7 @@ public class Suggestion {
 		
 		return false;
 	}
-	public Suggestion(String player, BoardCell room, String weapon){
+	public Suggestion(String player, String room, String weapon){
 		this.player = player;
 		this.room = room;
 		this.weapon = weapon;
@@ -31,7 +37,7 @@ public class Suggestion {
 		return this.player;
 	}
 	
-	public BoardCell getRoom(){
+	public String getRoom(){
 		return this.room;
 		
 	}

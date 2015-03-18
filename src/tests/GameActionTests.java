@@ -292,6 +292,7 @@ public class GameActionTests {
 		ComputerPlayer testPlayer = (ComputerPlayer)game.getGamePlayers().get(1);
 		ArrayList<Card> testSeen = new ArrayList<Card>();
 		
+		testPlayer.getHand().clear();
 		testPlayer.getHand().add(mustardCard);
 		testPlayer.getHand().add(greenCard);
 		testPlayer.getHand().add(hallCard);
@@ -300,19 +301,27 @@ public class GameActionTests {
 		testPlayer.getHand().add(wrenchCard);
 		
 		//Makes sure the player only thinks the cards in their hand exist in the game
+		game.getPeopleCards().clear();
+		game.getweaponsCards().clear();
 		game.setDeck(testPlayer.getHand());
+		game.SetCardTypes(game.getDeck());
 		
+		testPlayer.getSeen().clear();
 		testSeen.add(mustardCard);
 		testSeen.add(hallCard);
 		testSeen.add(knifeCard);
+		testPlayer.setSeen(testSeen);
+
 		
 		testPlayer.setLocation(board.getBoardCellAt(18, 13));
 		
 		//The computer player should suggest Mr. Green, in the Dining Room, with the wrench, since he has seen all other player/weapon options,
 		//and is currently in the Dining Room
-		Suggestion testSuggestion = new Suggestion("Reverend Green", board.getBoardCellAt(18, 13), "Wrench");
+		Suggestion testSuggestion = new Suggestion("Reverend Green", "Dining Room", "Wrench");
 		
-		assertTrue(testSuggestion.equals(testPlayer.makeSuggestion()));
+		System.out.println(testPlayer.makeSuggestion(game.getPeopleCards(), game.getweaponsCards()).toString());
+		
+		assertTrue(testSuggestion.equals(testPlayer.makeSuggestion(game.getPeopleCards(), game.getweaponsCards())));
 		
 		
 	}
@@ -323,6 +332,7 @@ public class GameActionTests {
 		ComputerPlayer testPlayer = (ComputerPlayer)game.getGamePlayers().get(1);
 		ArrayList<Card> testSeen = new ArrayList<Card>();
 		
+		testPlayer.getHand().clear();
 		testPlayer.getHand().add(mustardCard);
 		testPlayer.getHand().add(greenCard);
 		testPlayer.getHand().add(hallCard);
@@ -330,23 +340,33 @@ public class GameActionTests {
 		testPlayer.getHand().add(knifeCard);
 		testPlayer.getHand().add(wrenchCard);
 		
+		game.getPeopleCards().clear();
+		game.getweaponsCards().clear();
 		game.setDeck(testPlayer.getHand());
+		game.SetCardTypes(game.getDeck());
+		System.out.println(game.getPeopleCards());
+		System.out.println(game.getweaponsCards());
 		
+		testPlayer.getSeen().clear();
 		testSeen.add(hallCard);
 		testSeen.add(knifeCard);
+		testPlayer.setSeen(testSeen);
 		
 		testPlayer.setLocation(board.getBoardCellAt(18, 13));
+		testPlayer.setLastRoomVisited('D');
 		
-		Suggestion testSuggestion = new Suggestion("Reverend Green", board.getBoardCellAt(18, 13), "Wrench");
-		Suggestion testSuggestion2 = new Suggestion("Colonel Mustard", board.getBoardCellAt(18, 13), "Wrench");
-		Suggestion result = testPlayer.makeSuggestion();
+		System.out.println(testPlayer.makeSuggestion(game.getPeopleCards(), game.getweaponsCards()).toString());
+		
+		Suggestion testSuggestion = new Suggestion("Reverend Green", "Dining Room", "Wrench");
+		Suggestion testSuggestion2 = new Suggestion("Colonel Mustard", "Dining Room", "Wrench");
 		int count1 = 0;
 		int count2 = 0;
 		
 		for(int i =0; i< 50;i++){
-			if(testSuggestion.equals(testPlayer.makeSuggestion())){
+			Suggestion result = testPlayer.makeSuggestion(game.getPeopleCards(), game.getweaponsCards());
+			if(testSuggestion.equals(result)){
 				count1++;
-			}else if(testSuggestion2.equals(testPlayer.makeSuggestion())){
+			}else if(testSuggestion2.equals(result)){
 				count2++;
 			}else{
 				fail("incorrect suggestion returned");

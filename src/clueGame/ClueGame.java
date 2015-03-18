@@ -17,8 +17,10 @@ import java.lang.reflect.Field;
 public class ClueGame {
 	private Board gameBoard = new Board();
 	private Player humanPlayer;
-	private Map<Character, String> rooms = new HashMap<Character, String>();
+	private static Map<Character, String> rooms = new HashMap<Character, String>();
 	private ArrayList<Card> deck = new ArrayList<Card>();
+	private ArrayList<Card> people = new ArrayList<Card>();
+	private ArrayList<Card> weapons = new ArrayList<Card>();
 	private Set<Card> dontDeal = new HashSet<Card>();
 	private ArrayList<Player> gamePlayers = new ArrayList<Player>();
 	private Map<String,ArrayList<Integer>> startingPositions = new HashMap<String, ArrayList<Integer>>();
@@ -161,6 +163,21 @@ public class ClueGame {
 		}
 	}
 	
+	public void SetCardTypes(ArrayList<Card> deck){
+		for(Card x:deck){
+			switch(x.getCardType()){
+			case PERSON:
+				people.add(x);
+				break;
+			case WEAPON:
+				weapons.add(x);
+				break;
+			case ROOM:
+				break;
+			}
+		}
+	}
+	
 	public void selectAnswer(){
 		String person = null;
 		String room = null;
@@ -248,7 +265,7 @@ public class ClueGame {
 	public void setDeck(ArrayList<Card> deck){
 		this.deck = deck;
 	}
-	public Map<Character, String> getRooms() {
+	public static Map<Character, String> getRooms() {
 		return rooms;
 	}
 	
@@ -264,6 +281,13 @@ public class ClueGame {
 	}
 	public ArrayList<Player> getGamePlayers() {
 		return gamePlayers;
+	}
+	
+	public ArrayList<Card> getPeopleCards(){
+		return people;
+	}
+	public ArrayList<Card> getweaponsCards(){
+		return weapons;
 	}
 	public void setGamePlayersForTest(ArrayList<Player> testPlayers){
 		this.gamePlayers = testPlayers;
