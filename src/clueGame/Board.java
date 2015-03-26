@@ -1,6 +1,7 @@
 package clueGame;
 
-import java.awt.Color;
+import java.awt.*;
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -13,7 +14,10 @@ import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
 
-public class Board {
+import javax.swing.JPanel;
+
+
+public class Board extends JPanel{
 	private int numRows, numColumns;
 
 	private Map<Character, String> rooms;
@@ -21,7 +25,7 @@ public class Board {
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private Map<BoardCell, LinkedList<BoardCell>> adjMtx = new HashMap<BoardCell, LinkedList<BoardCell>>();
 	public BoardCell[][] board;
-	
+	private Graphics g;
 	public void loadBoardConfig(String layout) throws BadConfigFormatException{
 		try {
 			numRows = 1;
@@ -45,6 +49,7 @@ public class Board {
 						throw new BadConfigFormatException();
 					if (ar[j].equals("W")){
 						board[i][j] = new Walkway();
+						//board[i][j].draw(g, i, j);
 					}else {
 						board[i][j] = new RoomCell(ar[j]);
 					}
@@ -152,6 +157,14 @@ public class Board {
 	}
 	public void setRooms(Map<Character, String> rooms) {
 		this.rooms = rooms;
+	}
+	
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		g.setColor(Color.RED);
+		
+		
+	
 	}
 
 	

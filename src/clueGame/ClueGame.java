@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,7 +15,11 @@ import java.util.Random;
 import java.util.Set;
 import java.lang.reflect.Field;
 
-public class ClueGame {
+import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+
+public class ClueGame extends JFrame{
 	private Board gameBoard = new Board();
 	private Player humanPlayer;
 	private static Map<Character, String> rooms = new HashMap<Character, String>();
@@ -27,9 +32,19 @@ public class ClueGame {
 	private Map<String, Color> players = new HashMap<String, Color>();
 	private Solution solution;
 	
+	private JMenuBar menuBar = new JMenuBar();
 	public ClueGame() throws BadConfigFormatException {
 		loadRoomConfig("ClueLegend2.txt");
 		loadConfigFiles("ClueLayout2.csv");
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Clue Game");
+		setSize(1000, 800);
+		setResizable(false);
+		setJMenuBar(menuBar);
+		//menuBar.add(createFileMenu());
+		setBackground(Color.BLACK);
+		
 	}
 	public ClueGame(String layout, String legend) throws BadConfigFormatException {
 		loadRoomConfig(legend);
@@ -41,6 +56,17 @@ public class ClueGame {
 		loadConfigFiles(layout);
 		loadPlayerConfig(player);
 		loadDeckConfig(deck);
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Clue Game");
+		setSize(1000, 800);
+		setResizable(false);
+		setJMenuBar(menuBar);
+		//menuBar.add(createFileMenu());
+		setBackground(Color.BLACK);
+		
+		JPanel board = new Board();
+		add(board, BorderLayout.CENTER);
 	}
 	
 	private void loadDeckConfig(String deck) throws BadConfigFormatException{
@@ -251,7 +277,10 @@ public class ClueGame {
 	}
 	
 	public static void main(String[] args) throws BadConfigFormatException {
-		ClueGame g = new ClueGame("ClueLayout.csv", "RoomLegend.txt", "Player.txt", "Deck.txt");
+		ClueGame g = new ClueGame("ClueLayout.csv", "RoomLegend.txt", "Players.txt", "Deck.txt");
+		//ClueGame g = new ClueGame();
+		g.setVisible(true);
+		
 	}
 
 	//GETTERS AND SETTERS

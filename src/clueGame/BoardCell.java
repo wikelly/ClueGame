@@ -1,9 +1,12 @@
 package clueGame;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 public class BoardCell {
 	private int row, column;
 	protected DoorDirection dd;
-	
+	private int rowpix, colpix;
 	public boolean isWalkway(){
 		return false;	
 	}
@@ -27,4 +30,10 @@ public class BoardCell {
 		this.column = column;
 	}
 	
+	/*void draw(java.awt.Graphics g, int rowpix, int colpix) {
+		g.setColor(Color.RED);
+		g.fillRect(20, 20, 20, 20);
+		g.drawRect(20,20,20,20);
+	}*/
+	//abstract void draw(Graphics g, int rowpix, int colpix);
 }
