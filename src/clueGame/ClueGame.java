@@ -70,7 +70,7 @@ public class ClueGame extends JFrame{
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue Game");
-		setSize(1000, 800);
+		setSize(900, 800);
 		setResizable(false);
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
@@ -78,7 +78,7 @@ public class ClueGame extends JFrame{
 		JPanel board = new Board();
 		add(board, BorderLayout.CENTER);
 		JPanel cp = controlPanel.showThings();
-		add(cp, BorderLayout.NORTH);
+		add(cp, BorderLayout.EAST);
 		
 	}
 	

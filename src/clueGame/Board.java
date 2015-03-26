@@ -177,13 +177,19 @@ public class Board extends JPanel{
 				//bc.draw(g, this);
 				//board[i][j].draw(g, this);
 				
+					
+				g.setColor(Color.GRAY);
+				g.fillRect(i*rectSize, j*rectSize, rectSize, rectSize);
+				g.setColor(Color.WHITE);
+				g.drawRect(i*rectSize, j*rectSize, rectSize, rectSize);
+				
 			}
 			for(Player x: ClueGame.getGamePlayers()){
 				x.draw(g, this);
 			}
 		}
-		g.setColor(Color.RED);
-		Font font = new Font("Serif", Font.BOLD, 12);
+		g.setColor(Color.BLUE);
+		Font font = new Font("Dialog", Font.BOLD, 15);
 		g.setFont(font);
 		g.drawString("Conservatory", 0*rectSize, 1*rectSize);
 		g.drawString("Billiard room", 6*rectSize, 1*rectSize);
@@ -193,7 +199,7 @@ public class Board extends JPanel{
 		g.drawString("Lounge", 19*rectSize, 19*rectSize);
 		g.drawString("Hall", 17*rectSize, 13*rectSize);
 		g.drawString("Library", 16*rectSize, 2*rectSize);
-		g.drawString("Study", 21*rectSize, 2*rectSize);
+		g.drawString("Study", 20*rectSize, 2*rectSize);
 		//g.fillRect(20, 20, 40, 40);
 	
 	}
