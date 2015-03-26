@@ -1,5 +1,8 @@
 package clueGame;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 public class RoomCell extends BoardCell{;
 	static public DoorDirection DoorDirection;
 	private char roomInitial;
@@ -65,5 +68,30 @@ public class RoomCell extends BoardCell{;
 	}
 	public char getInitial() {
 		return roomInitial;
+	}
+
+
+
+
+	
+	public void draw(Graphics g, Board b) {
+		int rowpix = getRow();
+		int colpix = getColumn();
+		g.setColor(Color.BLACK);
+		g.fillRect(rowpix*rectSize, colpix*rectSize, rectSize, rectSize);
+		g.setColor(Color.BLUE);
+		if(isDoorway()){
+			switch(dd){
+				case DOWN:
+					g.fillRect(rowpix*rectSize, colpix*rectSize, rectSize, rectSize);
+				case LEFT:
+					g.fillRect(rowpix*rectSize, colpix*rectSize, rectSize, rectSize);
+				case RIGHT:
+					g.fillRect(rowpix*rectSize, colpix*rectSize, rectSize, rectSize);
+				case UP:
+					g.fillRect(rowpix*rectSize, colpix*rectSize, rectSize, rectSize);
+			}
+		}
+		
 	}
 }

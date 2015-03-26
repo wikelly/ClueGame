@@ -2,6 +2,9 @@ package clueGame;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,8 +19,14 @@ import java.util.Set;
 import java.lang.reflect.Field;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+
+import GUI.ControlPanelGUI;
+import GUI.DetectiveNotes;
+
 
 public class ClueGame extends JFrame{
 	private Board gameBoard = new Board();
@@ -27,10 +36,12 @@ public class ClueGame extends JFrame{
 	private ArrayList<Card> people = new ArrayList<Card>();
 	private ArrayList<Card> weapons = new ArrayList<Card>();
 	private Set<Card> dontDeal = new HashSet<Card>();
-	private ArrayList<Player> gamePlayers = new ArrayList<Player>();
+	private static ArrayList<Player> gamePlayers = new ArrayList<Player>();
 	private Map<String,ArrayList<Integer>> startingPositions = new HashMap<String, ArrayList<Integer>>();
 	private Map<String, Color> players = new HashMap<String, Color>();
 	private Solution solution;
+	private ControlPanelGUI controlPanel = new ControlPanelGUI();
+	private DetectiveNotes detectiveNotes = new DetectiveNotes();
 	
 	private JMenuBar menuBar = new JMenuBar();
 	public ClueGame() throws BadConfigFormatException {
@@ -62,13 +73,45 @@ public class ClueGame extends JFrame{
 		setSize(1000, 800);
 		setResizable(false);
 		setJMenuBar(menuBar);
-		//menuBar.add(createFileMenu());
-		setBackground(Color.BLACK);
+		menuBar.add(createFileMenu());
 		
 		JPanel board = new Board();
 		add(board, BorderLayout.CENTER);
+		JPanel cp = controlPanel.showThings();
+		add(cp, BorderLayout.NORTH);
+		
 	}
 	
+	private JMenu createFileMenu(){
+		JMenu menu = new JMenu("File");
+		menu.add(createFileNote());
+		menu.add(createFileExit());
+		
+		return menu;
+	}
+	
+	private JMenuItem createFileNote() {
+		JMenuItem item = new JMenuItem("Detective Notes");
+		class MenuItemListener implements ActionListener {
+			public void actionPerformed(ActionEvent e)
+			{
+				detectiveNotes.setVisible(true);
+			}
+		}
+		item.addActionListener(new MenuItemListener());
+		return item;
+	}
+	private JMenuItem createFileExit() {
+		JMenuItem item = new JMenuItem("Exit");
+		  class MenuItemListener implements ActionListener {
+		    public void actionPerformed(ActionEvent e)
+		    {
+		       System.exit(0);
+		    }
+		  }
+		  item.addActionListener(new MenuItemListener());
+		  return item;
+	}
 	private void loadDeckConfig(String deck) throws BadConfigFormatException{
 		File f = new File(deck);
 		try {
@@ -279,6 +322,7 @@ public class ClueGame extends JFrame{
 	public static void main(String[] args) throws BadConfigFormatException {
 		ClueGame g = new ClueGame("ClueLayout.csv", "RoomLegend.txt", "Players.txt", "Deck.txt");
 		//ClueGame g = new ClueGame();
+		
 		g.setVisible(true);
 		
 	}
@@ -308,7 +352,7 @@ public class ClueGame extends JFrame{
 	public Map<String, Color> getPlayers() {
 		return players;
 	}
-	public ArrayList<Player> getGamePlayers() {
+	public static ArrayList<Player> getGamePlayers() {
 		return gamePlayers;
 	}
 	
@@ -321,6 +365,7 @@ public class ClueGame extends JFrame{
 	public void setGamePlayersForTest(ArrayList<Player> testPlayers){
 		this.gamePlayers = testPlayers;
 	}
+
 
 	public void setGamePlayers(){
 		boolean first = true;
@@ -341,4 +386,7 @@ public class ClueGame extends JFrame{
 			}
 		}
 	}
+	
+	
+	
 }

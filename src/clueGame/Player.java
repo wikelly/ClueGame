@@ -1,7 +1,9 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
+
 
 public class Player {
 	private String name;
@@ -9,6 +11,7 @@ public class Player {
 	private ArrayList<Card> hand = new ArrayList<Card>();
 	private BoardCell location;
 	protected ArrayList<Card> seen = new ArrayList<Card>();
+	private int rectSize = 30;
 	
 	public Player(String name, Color color, BoardCell location){
 		this.name =  name;
@@ -45,5 +48,9 @@ public class Player {
 	}
 	public void seenCard(Card card){
 		seen.add(card);
+	}
+	public void draw(Graphics g, Board b){
+		g.setColor(color);
+		g.fillOval(location.getRow()*rectSize, location.getColumn()*rectSize, rectSize, rectSize);
 	}
 }

@@ -6,7 +6,9 @@ import java.awt.Graphics;
 public class BoardCell {
 	private int row, column;
 	protected DoorDirection dd;
-	private int rowpix, colpix;
+	protected int rectSize = 30;
+	
+	
 	public boolean isWalkway(){
 		return false;	
 	}
@@ -30,6 +32,9 @@ public class BoardCell {
 		this.column = column;
 	}
 	
+	protected void draw(Graphics g, Board b){
+		
+	}
 	/*void draw(java.awt.Graphics g, int rowpix, int colpix) {
 		g.setColor(Color.RED);
 		g.fillRect(20, 20, 20, 20);

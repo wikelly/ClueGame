@@ -19,13 +19,14 @@ import javax.swing.JPanel;
 
 public class Board extends JPanel{
 	private int numRows, numColumns;
-
+	private int rectSize = 30;
+	private static int rowpix, colpix;
 	private Map<Character, String> rooms;
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private Map<BoardCell, LinkedList<BoardCell>> adjMtx = new HashMap<BoardCell, LinkedList<BoardCell>>();
 	public BoardCell[][] board;
-	private Graphics g;
+	//private Graphics g;
 	public void loadBoardConfig(String layout) throws BadConfigFormatException{
 		try {
 			numRows = 1;
@@ -49,12 +50,12 @@ public class Board extends JPanel{
 						throw new BadConfigFormatException();
 					if (ar[j].equals("W")){
 						board[i][j] = new Walkway();
-						//board[i][j].draw(g, i, j);
 					}else {
 						board[i][j] = new RoomCell(ar[j]);
 					}
 					board[i][j].setRow(i);
 					board[i][j].setColumn(j);
+					
 				}
 				i=i+1;
 			}
@@ -63,6 +64,9 @@ public class Board extends JPanel{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		rowpix = numRows;
+		colpix =numColumns;
+		
 	}
 	
 	public void calcTargets(int row, int col, int diceRoll){
@@ -72,7 +76,7 @@ public class Board extends JPanel{
 	}
 	
 	public void calcAllTargets(int row, int col, int numSteps){
-		BoardCell a = new BoardCell();
+		BoardCell a;// = new BoardCell();
 		a = getBoardCellAt(row, col);
 		visited.add(a);
 		LinkedList<BoardCell> tmp = new LinkedList<BoardCell>(adjMtx.get(a));
@@ -159,11 +163,38 @@ public class Board extends JPanel{
 		this.rooms = rooms;
 	}
 	
+	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		g.setColor(Color.RED);
+		//BoardCell bc;
 		
-		
+		for(int i = 0; i< rowpix; i++){
+			for(int j = 0; j<colpix; j++){
+				//BoardCell bc =getBoardCellAt(i, j);
+				//bc.draw(g, this);
+				//bc = board[i][j];
+				//bc.draw(g, this);
+				//board[i][j].draw(g, this);
+				
+			}
+			for(Player x: ClueGame.getGamePlayers()){
+				x.draw(g, this);
+			}
+		}
+		g.setColor(Color.RED);
+		Font font = new Font("Serif", Font.BOLD, 12);
+		g.setFont(font);
+		g.drawString("Conservatory", 0*rectSize, 1*rectSize);
+		g.drawString("Billiard room", 6*rectSize, 1*rectSize);
+		g.drawString("Ballroom", 0*rectSize, 9*rectSize);
+		g.drawString("Kitchen", 0*rectSize, 16*rectSize);
+		g.drawString("Dining Room", 9*rectSize, 19*rectSize);
+		g.drawString("Lounge", 19*rectSize, 19*rectSize);
+		g.drawString("Hall", 17*rectSize, 13*rectSize);
+		g.drawString("Library", 16*rectSize, 2*rectSize);
+		g.drawString("Study", 21*rectSize, 2*rectSize);
+		//g.fillRect(20, 20, 40, 40);
 	
 	}
 

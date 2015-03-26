@@ -12,13 +12,15 @@ public class Walkway extends BoardCell{
 		// TODO Auto-generated method stub
 		return true;
 	}
-	/*@Override
-	void draw(java.awt.Graphics g, int rowpix, int colpix) {
+	
+
+	public void draw(Graphics g, Board b) {
 		g.setColor(Color.RED);
-		g.fillRect(20, 20, 20, 20);
-		g.drawRect(20,20,20,20);
+		g.fillRect(getRow()*20, getColumn()*20, 20, 20);
+		g.setColor(Color.BLACK);
+		g.drawRect(getRow()*rectSize,getColumn()*rectSize,rectSize,rectSize);
 		
-	}*/
+	}
 	
 	
 }
