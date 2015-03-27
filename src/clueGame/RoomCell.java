@@ -82,19 +82,15 @@ public class RoomCell extends BoardCell{;
 		if(isDoorway()){
 			switch(dd){
 			case DOWN:
-				System.out.println("derp");
 				g.fillRect(colpix*rectSize, rowpix*rectSize + (rectSize - rectSize/5) , rectSize, rectSize/5);
 				break;
 			case LEFT:
-				System.out.println("herp");
 				g.fillRect(colpix*rectSize, rowpix*rectSize, rectSize/5, rectSize);
 				break;
 			case RIGHT:
-				System.out.println("lerp");
 				g.fillRect(colpix*rectSize + (rectSize - rectSize/5), rowpix*rectSize, rectSize/5, rectSize);
 				break;
 			case UP:
-				System.out.println("slurp");
 				g.fillRect(colpix*rectSize, rowpix*rectSize, rectSize, rectSize/5);
 				break;
 			}

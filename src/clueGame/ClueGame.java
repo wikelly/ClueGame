@@ -31,7 +31,7 @@ import GUI.DetectiveNotes;
 public class ClueGame extends JFrame{
 	private Board gameBoard = new Board();
 	private final int WINDOW_WIDTH = 1000;
-	private final int WINDOW_HEIGHT = 800;
+	private final int WINDOW_HEIGHT = 900;
 	private Player humanPlayer;
 	private static Map<Character, String> rooms = new HashMap<Character, String>();
 	private ArrayList<Card> deck = new ArrayList<Card>();
@@ -81,7 +81,6 @@ public class ClueGame extends JFrame{
 		add(board, BorderLayout.CENTER);
 		JPanel cp = controlPanel.showThings();
 		add(cp, BorderLayout.SOUTH);
-		
 	}
 	
 	private JMenu createFileMenu(){

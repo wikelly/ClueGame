@@ -192,8 +192,7 @@ public class Board extends JPanel{
 		g.drawString("HALL", 17*rectSize, 13*rectSize);
 		g.drawString("LIBRARY", 16*rectSize, 2*rectSize);
 		g.drawString("STUDY", 21*rectSize, 2*rectSize);
-		System.out.println(numDraws);
-		System.out.println("");
+
 	
 	}
 
