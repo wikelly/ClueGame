@@ -72,26 +72,35 @@ public class RoomCell extends BoardCell{;
 
 
 
-
-	
+	@Override
 	public void draw(Graphics g, Board b) {
 		int rowpix = getRow();
 		int colpix = getColumn();
-		g.setColor(Color.BLACK);
-		g.fillRect(rowpix*rectSize, colpix*rectSize, rectSize, rectSize);
+		g.setColor(Color.LIGHT_GRAY);
+		g.fillRect(colpix*rectSize, rowpix*rectSize, rectSize, rectSize);
 		g.setColor(Color.BLUE);
 		if(isDoorway()){
 			switch(dd){
-				case DOWN:
-					g.fillRect(rowpix*rectSize, colpix*rectSize, rectSize, rectSize);
-				case LEFT:
-					g.fillRect(rowpix*rectSize, colpix*rectSize, rectSize, rectSize);
-				case RIGHT:
-					g.fillRect(rowpix*rectSize, colpix*rectSize, rectSize, rectSize);
-				case UP:
-					g.fillRect(rowpix*rectSize, colpix*rectSize, rectSize, rectSize);
+			case DOWN:
+				System.out.println("derp");
+				g.fillRect(colpix*rectSize, rowpix*rectSize + (rectSize - rectSize/5) , rectSize, rectSize/5);
+				break;
+			case LEFT:
+				System.out.println("herp");
+				g.fillRect(colpix*rectSize, rowpix*rectSize, rectSize/5, rectSize);
+				break;
+			case RIGHT:
+				System.out.println("lerp");
+				g.fillRect(colpix*rectSize + (rectSize - rectSize/5), rowpix*rectSize, rectSize/5, rectSize);
+				break;
+			case UP:
+				System.out.println("slurp");
+				g.fillRect(colpix*rectSize, rowpix*rectSize, rectSize, rectSize/5);
+				break;
 			}
 		}
 		
 	}
+
+	
 }

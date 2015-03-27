@@ -18,8 +18,10 @@ import clueGame.ClueGame;
 import clueGame.ComputerPlayer;
 import clueGame.HumanPlayer;
 import clueGame.Player;
+import clueGame.RoomCell;
 import clueGame.Solution;
 import clueGame.Suggestion;
+import clueGame.Walkway;
 
 public class GameActionTests {
 	
@@ -86,8 +88,8 @@ public class GameActionTests {
 	
 	//These tests are for the suggestion checking function
 	@Test
-	public void disproveSuggestionTests(){
-		Player testPlayer = new Player("Colonel Mustard", Color.YELLOW, new BoardCell());
+	public void disproveSuggestionTests() {
+		Player testPlayer = new Player("Colonel Mustard", Color.YELLOW, new Walkway());
 		testPlayer.getHand().add(mustardCard);
 		testPlayer.getHand().add(greenCard);
 		testPlayer.getHand().add(hallCard);
@@ -146,10 +148,10 @@ public class GameActionTests {
 	@Test
 	public void testAllPlayersQueried(){
 		ArrayList<Player> testPlayers = new ArrayList<Player>();
-		Player testPlayer1 = new HumanPlayer("test", Color.GREEN, new BoardCell());
-		Player testPlayer2 = new ComputerPlayer("test", Color.GREEN, new BoardCell());
-		Player testPlayer3 = new ComputerPlayer("test", Color.GREEN, new BoardCell());
-		Player testPlayer4 = new ComputerPlayer("test", Color.GREEN, new BoardCell());
+		Player testPlayer1 = new HumanPlayer("test", Color.GREEN, new Walkway());
+		Player testPlayer2 = new ComputerPlayer("test", Color.GREEN, new Walkway());
+		Player testPlayer3 = new ComputerPlayer("test", Color.GREEN, new Walkway());
+		Player testPlayer4 = new ComputerPlayer("test", Color.GREEN, new Walkway());
 		
 		testPlayer1.getHand().add(mustardCard);
 		testPlayer2.getHand().add(greenCard);

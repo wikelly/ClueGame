@@ -15,10 +15,10 @@ public class Walkway extends BoardCell{
 	
 
 	public void draw(Graphics g, Board b) {
-		g.setColor(Color.RED);
-		g.fillRect(getRow()*20, getColumn()*20, 20, 20);
+		g.setColor(Color.YELLOW);
+		g.fillRect(getColumn()*rectSize, getRow()*rectSize, rectSize, rectSize);
 		g.setColor(Color.BLACK);
-		g.drawRect(getRow()*rectSize,getColumn()*rectSize,rectSize,rectSize);
+		g.drawRect(getColumn()*rectSize,getRow()*rectSize,rectSize,rectSize);
 		
 	}
 	

@@ -30,6 +30,8 @@ import GUI.DetectiveNotes;
 
 public class ClueGame extends JFrame{
 	private Board gameBoard = new Board();
+	private final int WINDOW_WIDTH = 1000;
+	private final int WINDOW_HEIGHT = 800;
 	private Player humanPlayer;
 	private static Map<Character, String> rooms = new HashMap<Character, String>();
 	private ArrayList<Card> deck = new ArrayList<Card>();
@@ -48,13 +50,13 @@ public class ClueGame extends JFrame{
 		loadRoomConfig("ClueLegend2.txt");
 		loadConfigFiles("ClueLayout2.csv");
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		/*setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue Game");
 		setSize(1000, 800);
 		setResizable(false);
 		setJMenuBar(menuBar);
 		//menuBar.add(createFileMenu());
-		setBackground(Color.BLACK);
+		setBackground(Color.BLACK);*/
 		
 	}
 	public ClueGame(String layout, String legend) throws BadConfigFormatException {
@@ -70,15 +72,15 @@ public class ClueGame extends JFrame{
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue Game");
-		setSize(1000, 800);
+		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		setResizable(false);
 		setJMenuBar(menuBar);
 		menuBar.add(createFileMenu());
 		
-		JPanel board = new Board();
+		JPanel board = gameBoard;
 		add(board, BorderLayout.CENTER);
 		JPanel cp = controlPanel.showThings();
-		add(cp, BorderLayout.NORTH);
+		add(cp, BorderLayout.SOUTH);
 		
 	}
 	
@@ -319,9 +321,11 @@ public class ClueGame extends JFrame{
 		}
 	}
 	
+	//MAIN METHOD -----------------------------------------------------------------------------------------------
+	//
+	//
 	public static void main(String[] args) throws BadConfigFormatException {
 		ClueGame g = new ClueGame("ClueLayout.csv", "RoomLegend.txt", "Players.txt", "Deck.txt");
-		//ClueGame g = new ClueGame();
 		
 		g.setVisible(true);
 		

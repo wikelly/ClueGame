@@ -51,6 +51,8 @@ public class Player {
 	}
 	public void draw(Graphics g, Board b){
 		g.setColor(color);
-		g.fillOval(location.getRow()*rectSize, location.getColumn()*rectSize, rectSize, rectSize);
+		g.fillOval(location.getColumn()*rectSize, location.getRow()*rectSize, rectSize, rectSize);
+		g.setColor(Color.black);
+		g.drawOval(location.getColumn()*rectSize, location.getRow()*rectSize, rectSize, rectSize);
 	}
 }

@@ -3,7 +3,7 @@ package clueGame;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class BoardCell {
+public abstract class BoardCell {
 	private int row, column;
 	protected DoorDirection dd;
 	protected int rectSize = 30;
@@ -32,13 +32,7 @@ public class BoardCell {
 		this.column = column;
 	}
 	
-	protected void draw(Graphics g, Board b){
-		
-	}
-	/*void draw(java.awt.Graphics g, int rowpix, int colpix) {
-		g.setColor(Color.RED);
-		g.fillRect(20, 20, 20, 20);
-		g.drawRect(20,20,20,20);
-	}*/
-	//abstract void draw(Graphics g, int rowpix, int colpix);
+	abstract void draw(Graphics g, Board b);
+	
+	
 }

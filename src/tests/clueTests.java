@@ -40,8 +40,8 @@ public class clueTests {
 		// and last in the file and a few others
 		assertEquals("Conservatory", rooms.get('C'));
 		assertEquals("Ballroom", rooms.get('B'));
-		assertEquals("Billiard room", rooms.get('R'));
-		assertEquals("Dining room", rooms.get('D'));
+		assertEquals("Billiard Room", rooms.get('R'));
+		assertEquals("Dining Room", rooms.get('D'));
 		assertEquals("Walkway", rooms.get('W'));
 		assertEquals("Kitchen", rooms.get('K'));
 		assertEquals("Library", rooms.get('L'));

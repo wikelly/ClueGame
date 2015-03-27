@@ -26,6 +26,7 @@ public class Board extends JPanel{
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private Map<BoardCell, LinkedList<BoardCell>> adjMtx = new HashMap<BoardCell, LinkedList<BoardCell>>();
 	public BoardCell[][] board;
+	private int numDraws = 0;
 	//private Graphics g;
 	public void loadBoardConfig(String layout) throws BadConfigFormatException{
 		try {
@@ -163,38 +164,36 @@ public class Board extends JPanel{
 		this.rooms = rooms;
 	}
 	
-	
+	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		g.setColor(Color.RED);
-		//BoardCell bc;
 		
 		for(int i = 0; i< rowpix; i++){
 			for(int j = 0; j<colpix; j++){
-				//BoardCell bc =getBoardCellAt(i, j);
-				//bc.draw(g, this);
-				//bc = board[i][j];
-				//bc.draw(g, this);
-				//board[i][j].draw(g, this);
+				BoardCell bc = getBoardCellAt(i, j);
+				bc.draw(g, this);
+				numDraws++;
 				
 			}
-			for(Player x: ClueGame.getGamePlayers()){
-				x.draw(g, this);
-			}
+			
 		}
-		g.setColor(Color.RED);
-		Font font = new Font("Serif", Font.BOLD, 12);
+		for(Player x: ClueGame.getGamePlayers()){
+				x.draw(g, this);
+		}
+		g.setColor(Color.BLUE);
+		Font font = new Font("Sans Serif", Font.PLAIN, 12);
 		g.setFont(font);
-		g.drawString("Conservatory", 0*rectSize, 1*rectSize);
-		g.drawString("Billiard room", 6*rectSize, 1*rectSize);
-		g.drawString("Ballroom", 0*rectSize, 9*rectSize);
-		g.drawString("Kitchen", 0*rectSize, 16*rectSize);
-		g.drawString("Dining Room", 9*rectSize, 19*rectSize);
-		g.drawString("Lounge", 19*rectSize, 19*rectSize);
-		g.drawString("Hall", 17*rectSize, 13*rectSize);
-		g.drawString("Library", 16*rectSize, 2*rectSize);
-		g.drawString("Study", 21*rectSize, 2*rectSize);
-		//g.fillRect(20, 20, 40, 40);
+		g.drawString("CONSERVATORY", 1*rectSize, 2*rectSize);
+		g.drawString("BILLIARD ROOM", 8*rectSize, 2*rectSize);
+		g.drawString("BALLROOM", 1*rectSize, 10*rectSize);
+		g.drawString("KITCHEN", 1*rectSize, 16*rectSize);
+		g.drawString("DINING ROOM", 9*rectSize, 19*rectSize);
+		g.drawString("LOUNGE", 19*rectSize, 21*rectSize);
+		g.drawString("HALL", 17*rectSize, 13*rectSize);
+		g.drawString("LIBRARY", 16*rectSize, 2*rectSize);
+		g.drawString("STUDY", 21*rectSize, 2*rectSize);
+		System.out.println(numDraws);
+		System.out.println("");
 	
 	}
 

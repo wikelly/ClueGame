@@ -1,13 +1,16 @@
 package GUI;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+
 import clueGame.ClueGame;
 
 public class ControlPanelGUI extends JFrame{
@@ -27,6 +30,7 @@ public class ControlPanelGUI extends JFrame{
 		panel.add(createButtonsPanel());
 		panel.add(createNamesPanel());
 		panel.add(createOthersPanel());
+		panel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED), BorderFactory.createBevelBorder(BevelBorder.RAISED)));
 		return panel;
 	}
 	public JPanel createLayout(){
@@ -42,7 +46,7 @@ public class ControlPanelGUI extends JFrame{
 		return null;
 		
 	}
-	//Ask's Whos turn
+	//Ask's Whose turn
 	private JPanel createNamesPanel(){
 		JPanel panel = new JPanel();
 		JLabel turn = new JLabel("Whose turn?");
